@@ -1,11 +1,11 @@
 public abstract class Entity{
     private String name;
-    private int hp;
-    private int maxHp;
+    private double hp;
+    private double maxHp;
     private int atk;
     private int def;
     private int spd;
-    Entity(String name, int maxHp, int atk, int def, int spd) {
+    Entity(String name, double maxHp, int atk, int def, int spd) {
         this.name = name;
         this.hp = maxHp;
         this.maxHp = maxHp;
@@ -19,10 +19,10 @@ public abstract class Entity{
     public String getName() {
         return name;
     }
-    public int getHp() {
+    public double getHp() {
         return hp;
     }
-    public int getMaxHp() {
+    public double getMaxHp() {
         return maxHp;
     }
     public int getAtk() {
@@ -34,13 +34,16 @@ public abstract class Entity{
     public int getSpd() {
         return spd;
     }
+    public double getCritChance(){
+        return 0;
+    }
     public void setName(String name) {
         this.name = name;
     }
-    public void setHp(int hp) {
+    public void setHp(double hp) {
         this.hp = hp;
     }
-    public void setMaxHp(int maxHp) {
+    public void setMaxHp(double maxHp) {
         this.maxHp = maxHp;
     }
     public void setAtk(int atk) {
