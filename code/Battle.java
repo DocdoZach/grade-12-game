@@ -1,8 +1,8 @@
 public class Battle{
-    public void battleCalculator(Entity attacker,Entity defender){
-        int damage=attacker.getAtk();
-        if(Math.random()<=attacker.getCritChance()){
-            damage*=1.5;
+    public void battleCalculator(Entity attacker, Entity defender){
+        int damage = attacker.getAtk();
+        if(Math.random() <= attacker.getCritChance()){
+            damage *= 1.5;
         }
         if(Math.random()<=attacker.getDodgeChance());
         else if(damage<=defender.getDef()){

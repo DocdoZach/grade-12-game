@@ -56,32 +56,89 @@ public class Shop {
         this.stock1 = stock1;
     }
 
-    public void menu() {
+    public void menu(Player customer) {
         Scanner input = new Scanner(System.in);
         int choice = 0;
-        System.out.println("Welcome to the shop. Please select an item to buy.");
-        System.out.println("1. " + item1.getName() + " x" + stock1 + ", $" + item1.getValue() + " each");
-        if(!item2.getName().isEmpty()) {
-            System.out.println("2. " + item2.getName() + "x" + stock2 + ", $" + item2.getValue() + " each");
-        }
-        if(!item3.getName().isEmpty()) {
-            System.out.println("3. " + item3.getName() + "x" + stock3 + ", $" + item3.getValue() + " each");
-        }
-        if(!item4.getName().isEmpty()) {
-            System.out.println("4. " + item4.getName() + "x" + stock4 + ", $" + item4.getValue() + " each");
-        }
-
+        System.out.println("Welcome to the shop. ");
         while(true) {
-            try {
-                if(itemCount == 1) System.out.print("Your choice (1, or 0 to exit): ");
-                else System.out.print("Your choice (1-" + itemCount + ", or 0 to exit): ");
-                choice = input.nextInt();
-                if(choice < 0 || choice > itemCount) System.out.print("Invalid choice. ");
-                else break;
-            } catch(Exception e) {
-                System.out.print("Invalid choice. ");
-                input.nextLine();
+            System.out.println("----------\nPlease select an item to buy.");
+            System.out.println("1. " + item1.getName() + " x" + stock1 + ", $" + item1.getValue() + " each");
+            if(!item2.getName().isEmpty()) {
+                System.out.println("2. " + item2.getName() + "x" + stock2 + ", $" + item2.getValue() + " each");
             }
+            if(!item3.getName().isEmpty()) {
+                System.out.println("3. " + item3.getName() + "x" + stock3 + ", $" + item3.getValue() + " each");
+            }
+            if(!item4.getName().isEmpty()) {
+                System.out.println("4. " + item4.getName() + "x" + stock4 + ", $" + item4.getValue() + " each");
+            }
+
+            while(true) {
+                try {
+                    if(itemCount == 1) System.out.print("Your choice (1, or 0 to exit): ");
+                    else System.out.print("Your choice (1-" + itemCount + ", or 0 to exit): ");
+                    choice = input.nextInt();
+                    if(choice < 0 || choice > itemCount) System.out.print("Invalid choice. ");
+                    else break;
+                } catch(Exception e) {
+                    System.out.print("Invalid choice. ");
+                    input.nextLine();
+                }
+            }
+
+            switch(choice) {
+                case 1:
+                    if(customer.getBal() < item1.getValue()) System.out.println("You don't have enough money!");
+                    else {
+                        customer.setBal(customer.getBal() - item1.getValue());
+                        customer.setInvSlot(item1, customer.getEmptyIndex());
+                        System.out.print("You got a");
+                        if(item1.startsWithVowel()) {
+                            System.out.print("n");
+                        }
+                        System.out.println(" " + item1.getName() + "!");
+                    }
+                    break;
+                case 2:
+                    if(customer.getBal() < item2.getValue()) System.out.println("You don't have enough money!");
+                    else {
+                        customer.setBal(customer.getBal() - item2.getValue());
+                        customer.setInvSlot(item2, customer.getEmptyIndex());
+                        System.out.print("You got a");
+                        if(item2.startsWithVowel()) {
+                            System.out.print("n");
+                        }
+                        System.out.println(" " + item2.getName() + "!");
+                    }
+                    break;
+                case 3:
+                    if(customer.getBal() < item3.getValue()) System.out.println("You don't have enough money!");
+                    else {
+                        customer.setBal(customer.getBal() - item3.getValue());
+                        customer.setInvSlot(item3, customer.getEmptyIndex());
+                        System.out.print("You got a");
+                        if(item3.startsWithVowel()) {
+                            System.out.print("n");
+                        }
+                        System.out.println(" " + item3.getName() + "!");
+                    }
+                    break;
+                case 4:
+                    if(customer.getBal() < item4.getValue()) System.out.println("You don't have enough money!");
+                    else {
+                        customer.setBal(customer.getBal() - item4.getValue());
+                        customer.setInvSlot(item4, customer.getEmptyIndex());
+                        System.out.print("You got a");
+                        if(item4.startsWithVowel()) {
+                            System.out.print("n");
+                        }
+                        System.out.println(" " + item4.getName() + "!");
+                    }
+                    break;
+                default:
+                    break;
+            }
+            if(choice == 0) break;
         }
     }
 
