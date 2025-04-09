@@ -37,6 +37,9 @@ public abstract class Entity{
     public double getCritChance(){
         return 0;
     }
+    public double getDodgeChance(){
+        return 0;
+    }
     public void setName(String name) {
         this.name = name;
     }
