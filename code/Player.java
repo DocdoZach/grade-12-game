@@ -29,8 +29,16 @@ public class Player extends Entity{
     public void setBal(int bal) {
         this.bal = bal;
     }
-    public Item[] getInv() {
-        return inv;
+    public String getInv() {
+        String output = "";
+        for(int i = 0; i < 10; i++) {
+            System.out.print("Your bag: ");
+            if(inv[i] != null) {
+                output += inv[i].getName();
+                output += ", ";
+            }
+        }
+        return output;
     }
     public void setInvSlot(Item item, int index) {
         this.inv[index] = item;

@@ -14,7 +14,7 @@ public abstract class Entity{
         this.spd = spd;
     }
     public String toString() {
-        return name + " has " + hp + " HP remaining.";
+        return name;
     }
     public String getName() {
         return name;
