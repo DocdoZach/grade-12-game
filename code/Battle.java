@@ -1,8 +1,8 @@
 import java.util.Scanner;
 public class Battle{//Temporary
-    public Scanner input = new Scanner(System.in);
-    public int coins = 1, abilityUses; //Coins is Temporary
-    public boolean battler(Entity player,Entity enemy){
+    public static Scanner input = new Scanner(System.in);
+    public static int coins = 1, abilityUses; //Coins is Temporary
+    public static void battler(Entity player,Entity enemy){
         System.out.println(enemy.getName() + " appeared!");
         String skillClass = "mage"; //Temporary
         boolean skip;
@@ -42,18 +42,17 @@ public class Battle{//Temporary
             if(player.getHp() <= 0) {
                 System.out.printf("You lost and dropped %d coins!",coins);
                 coins -= 2;
-                return true;
+                break;
             }
             battleCalculator(enemy,player);
             if(enemy.getHp() <= 0) {
                 System.out.printf("You defeated %s and they dropped %d coins!",enemy.getName(),coins);
                 coins += 2;
-                return false;
+                break;
             }
         }
-        return false; //Fallback
     }
-    public void battleCalculator(Entity attacker,Entity defender){
+    public static void battleCalculator(Entity attacker,Entity defender){
         double damage = attacker.getAtk();
         if(Math.random() <= attacker.getCritChance()){
             System.out.println("Critical Hit!");

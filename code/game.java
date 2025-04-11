@@ -18,7 +18,7 @@ public class game {
         clear();
 
         choice = 0;
-        System.out.println("WIP Game Name debug menu\n1. Story Mode\n2. Shop menu\n3. Quit");
+        System.out.println("WIP Game Name debug menu\n1. Battle test\n2. Shop menu test\n3. Quit");
         while(true) {
             try {
                 System.out.print("Select an option (1-3): ");
@@ -35,7 +35,7 @@ public class game {
         switch(choice) {
             case 1:
                 System.out.println("WIP");
-                System.out.println(h.getItem1());
+                Battle.battler(p, s);
                 break;
             case 2:
                 System.out.println("WIP");
