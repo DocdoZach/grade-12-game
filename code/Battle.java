@@ -2,7 +2,7 @@ import java.util.Scanner;
 public class Battle{//Temporary
     public static Scanner input = new Scanner(System.in);
     public static int coins = 1, abilityUses; //Coins is Temporary
-    public static void battler(Entity player,Entity enemy){
+    public static void battler(Player player,Entity enemy){
         System.out.println(enemy + " appeared!");
         String skillClass = "mage"; //Temporary
         boolean skip;
