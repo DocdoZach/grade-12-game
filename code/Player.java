@@ -33,12 +33,11 @@ public class Player extends Entity{
     }
     public String getInv() {
         String output = "";
+        if(this.inv.isEmpty()) return "Your bag is empty.";
         for(int i = 0; i < 10; i++) {
             System.out.print("Your bag: ");
-            if(inv.get(i) != null) {
-                output += inv.get(i).getName();
-                output += ", ";
-            }
+            output += inv.get(i).getName();
+            output += ", ";
         }
         return output;
     }

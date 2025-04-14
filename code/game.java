@@ -14,12 +14,11 @@ public class game {
         Player p = new Player("none", 5, 5, 5, 3, 50, new ArrayList<>());
         Shop h = new Shop(hotCocoa, 3);
 
-        int choice;
+        int choice = 0;
         System.out.print("Enter your name: ");
         p.setName(input.nextLine());
         clear();
 
-        choice = 0;
         System.out.println("WIP Game Name debug menu\n1. Battle test\n2. Shop menu test\n3. Quit");
         while(true) {
             try {
