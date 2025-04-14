@@ -91,7 +91,7 @@ public class Shop {
                     if(customer.getBal() < item1.getValue()) System.out.println("You don't have enough money!");
                     else {
                         customer.setBal(customer.getBal() - item1.getValue());
-                        customer.setInvSlot(item1, customer.getEmptyIndex());
+                        customer.addItem(item1);
                         System.out.print("You got a");
                         if(item1.startsWithVowel()) {
                             System.out.print("n");
@@ -103,7 +103,7 @@ public class Shop {
                     if(customer.getBal() < item2.getValue()) System.out.println("You don't have enough money!");
                     else {
                         customer.setBal(customer.getBal() - item2.getValue());
-                        customer.setInvSlot(item2, customer.getEmptyIndex());
+                        customer.addItem(item2);
                         System.out.print("You got a");
                         if(item2.startsWithVowel()) {
                             System.out.print("n");
@@ -115,7 +115,7 @@ public class Shop {
                     if(customer.getBal() < item3.getValue()) System.out.println("You don't have enough money!");
                     else {
                         customer.setBal(customer.getBal() - item3.getValue());
-                        customer.setInvSlot(item3, customer.getEmptyIndex());
+                        customer.addItem(item3);
                         System.out.print("You got a");
                         if(item3.startsWithVowel()) {
                             System.out.print("n");
@@ -127,7 +127,7 @@ public class Shop {
                     if(customer.getBal() < item4.getValue()) System.out.println("You don't have enough money!");
                     else {
                         customer.setBal(customer.getBal() - item4.getValue());
-                        customer.setInvSlot(item4, customer.getEmptyIndex());
+                        customer.addItem(item4);
                         System.out.print("You got a");
                         if(item4.startsWithVowel()) {
                             System.out.print("n");

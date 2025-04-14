@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.Scanner;
+
 public class game {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
@@ -9,7 +11,7 @@ public class game {
         BossEnemy b = new BossEnemy("Architect", 15, 7, 7, 4);
         BigEnemy g = new BigEnemy("Placeholder", 10, 6, 6, 3);
         SmallEnemy s = new SmallEnemy("Small Dude", 5, 5, 5, 2);
-        Player p = new Player("none", 5, 5, 5, 3, 50, new Item[]{hotCocoa, null, null, null, null, null, null, null, null, null});
+        Player p = new Player("none", 5, 5, 5, 3, 50, new ArrayList<>());
         Shop h = new Shop(hotCocoa, 3);
 
         int choice;

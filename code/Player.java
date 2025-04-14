@@ -1,10 +1,12 @@
+import java.util.ArrayList;
+
 public class Player extends Entity{
     private double critChance;
     private double dodgeChance;
     private int bal;
-    private Item[] inv;
+    private ArrayList<Item> inv = new ArrayList<>();
 
-    Player(String name, int maxHp, int atk, int def, int spd, int bal, Item[] inv){
+    Player(String name, int maxHp, int atk, int def, int spd, int bal, ArrayList<Item> inv){
         super(name, maxHp, atk, def, spd);
         critChance = 0.25;
         dodgeChance = 0;
@@ -33,20 +35,17 @@ public class Player extends Entity{
         String output = "";
         for(int i = 0; i < 10; i++) {
             System.out.print("Your bag: ");
-            if(inv[i] != null) {
-                output += inv[i].getName();
+            if(inv.get(i) != null) {
+                output += inv.get(i).getName();
                 output += ", ";
             }
         }
         return output;
     }
-    public void setInvSlot(Item item, int index) {
-        this.inv[index] = item;
+    public void addItem(Item item) {
+        this.inv.add(item);
     }
-    public int getEmptyIndex() {
-        for(int i = 0; i < inv.length; i++) {
-            if(inv[i] == null) return i;
-        }
-        return -1;
+    public void removeItem(Item item) {
+        this.inv.remove(item);
     }
 }
