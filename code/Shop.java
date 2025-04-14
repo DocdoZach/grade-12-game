@@ -24,7 +24,7 @@ public class Shop {
     }
 
     Shop(Item item1, Item item2, Item item3, int stock1, int stock2, int stock3) {
-        Item empty = new Item("", -1);
+        Item empty = new Item("", -1, 0);
         this.itemCount = 3;
         this.item1 = item1;
         this.item2 = item2;
@@ -36,7 +36,7 @@ public class Shop {
     }
 
     Shop(Item item1, Item item2, int stock1, int stock2) {
-        Item empty = new Item("", -1);
+        Item empty = new Item("", -1, 0);
         this.itemCount = 2;
         this.item1 = item1;
         this.item2 = item2;
@@ -47,7 +47,7 @@ public class Shop {
     }
 
     Shop(Item item1, int stock1) {
-        Item empty = new Item("", -1);
+        Item empty = new Item("", -1, 0);
         this.itemCount = 1;
         this.item1 = item1;
         this.item2 = empty;
@@ -64,13 +64,13 @@ public class Shop {
             System.out.println("----------\nPlease select an item to buy.");
             System.out.println("1. " + item1.getName() + " x" + stock1 + ", $" + item1.getValue() + " each");
             if(!item2.getName().isEmpty()) {
-                System.out.println("2. " + item2.getName() + "x" + stock2 + ", $" + item2.getValue() + " each");
+                System.out.println("2. " + item2.getName() + " x" + stock2 + ", $" + item2.getValue() + " each");
             }
             if(!item3.getName().isEmpty()) {
-                System.out.println("3. " + item3.getName() + "x" + stock3 + ", $" + item3.getValue() + " each");
+                System.out.println("3. " + item3.getName() + " x" + stock3 + ", $" + item3.getValue() + " each");
             }
             if(!item4.getName().isEmpty()) {
-                System.out.println("4. " + item4.getName() + "x" + stock4 + ", $" + item4.getValue() + " each");
+                System.out.println("4. " + item4.getName() + " x" + stock4 + ", $" + item4.getValue() + " each");
             }
 
             while(true) {
@@ -89,9 +89,11 @@ public class Shop {
             switch(choice) {
                 case 1:
                     if(customer.getBal() < item1.getValue()) System.out.println("You don't have enough money!");
+                    else if(stock1 < 1) System.out.println("This item is out of stock!");
                     else {
                         customer.setBal(customer.getBal() - item1.getValue());
                         customer.addItem(item1);
+                        stock1--;
                         System.out.print("You got a");
                         if(item1.startsWithVowel()) {
                             System.out.print("n");
@@ -101,9 +103,11 @@ public class Shop {
                     break;
                 case 2:
                     if(customer.getBal() < item2.getValue()) System.out.println("You don't have enough money!");
+                    else if(stock2 < 1) System.out.println("This item is out of stock!");
                     else {
                         customer.setBal(customer.getBal() - item2.getValue());
                         customer.addItem(item2);
+                        stock2--;
                         System.out.print("You got a");
                         if(item2.startsWithVowel()) {
                             System.out.print("n");
@@ -113,9 +117,11 @@ public class Shop {
                     break;
                 case 3:
                     if(customer.getBal() < item3.getValue()) System.out.println("You don't have enough money!");
+                    else if(stock3 < 1) System.out.println("This item is out of stock!");
                     else {
                         customer.setBal(customer.getBal() - item3.getValue());
                         customer.addItem(item3);
+                        stock3--;
                         System.out.print("You got a");
                         if(item3.startsWithVowel()) {
                             System.out.print("n");
@@ -125,9 +131,11 @@ public class Shop {
                     break;
                 case 4:
                     if(customer.getBal() < item4.getValue()) System.out.println("You don't have enough money!");
+                    else if(stock4 < 1) System.out.println("This item is out of stock!");
                     else {
                         customer.setBal(customer.getBal() - item4.getValue());
                         customer.addItem(item4);
+                        stock4--;
                         System.out.print("You got a");
                         if(item4.startsWithVowel()) {
                             System.out.print("n");

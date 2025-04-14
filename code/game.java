@@ -5,14 +5,19 @@ public class game {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
 
+        Player p = new Player("none", 5, 5, 5, 3, 50, new ArrayList<>());
+
         // item list
-        Item hotCocoa = new Item("Hot Cocoa",10);
+        Item hotCocoa = new Item("Hot Cocoa",25, p.getMaxHp());
+        Item apple = new Item("Apple", 3, 3);
+        Item bread = new Item("Bread", 5, 5);
+        Item salad = new Item("Salad", 8, 7);
+        Item applePie = new Item("Apple Pie", 10, 9);
 
         BossEnemy b = new BossEnemy("Architect", 15, 7, 7, 4);
         BigEnemy g = new BigEnemy("Placeholder", 10, 6, 6, 3);
         SmallEnemy s = new SmallEnemy("Small Dude", 5, 5, 5, 2);
-        Player p = new Player("none", 5, 5, 5, 3, 50, new ArrayList<>());
-        Shop h = new Shop(hotCocoa, 3);
+        Shop threeCents = new Shop(hotCocoa, applePie, bread, apple, 1, 3, 5, 7);
 
         int choice = 0;
         System.out.print("Enter your name: ");
@@ -40,7 +45,7 @@ public class game {
                 break;
             case 2:
                 System.out.println("WIP");
-                h.menu(p);
+                threeCents.menu(p);
                 break;
             case 3:
                 System.exit(0);
