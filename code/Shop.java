@@ -58,6 +58,8 @@ public class Shop {
 
     public void menu(Player customer) {
         Scanner input = new Scanner(System.in);
+
+        // Shop menu option select
         int choice = 0;
         System.out.println("Welcome to the shop. ");
         while(true) {
@@ -86,6 +88,7 @@ public class Shop {
                 }
             }
 
+            // Switch statement for chosen option
             switch(choice) {
                 case 1:
                     if(customer.getBal() < item1.getValue()) System.out.println("You don't have enough money!");

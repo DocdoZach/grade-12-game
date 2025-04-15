@@ -2,11 +2,12 @@ import java.util.Scanner;
 public class Battle{//Temporary
     public static Scanner input = new Scanner(System.in);
     public static int abilityUses; //Coins is Temporary
+    private static int win = 0;
     public static void battler(Player player,SmallEnemy enemy){
-        System.out.println(enemy + " appeared!");
-        String skillClass = "mage"/*Temporary*/,loseText = "defeated" + enemy;
+        System.out.println("----------\n" + enemy + " appeared!");
+        String skillClass = "mage"/*Temporary*/, loseText = " was defeated by " + enemy;
         boolean skip, run;
-        int coins = enemy.getCoinValue(), win = 0;
+        int coins = enemy.getCoinValue();
         abilityUses = 1;
         while(win==0){
             game.clear();
@@ -48,10 +49,10 @@ public class Battle{//Temporary
             }
             if(skip) continue;
             if(win==1){
-                System.out.printf("You defeated %s! They dropped %d coins!",enemy,coins);
+                System.out.printf("You defeated %s! They dropped %d coins!\n",enemy,coins);
                 player.setBal(player.getBal()+coins);
             }else if(win==-1){
-                System.out.printf("You %s and you dropped %d coins!",loseText,coins);
+                System.out.printf("You %s and you dropped %d coins!\n",loseText,coins);
                 player.setBal(player.getBal()-coins);
             }
         }
@@ -70,7 +71,7 @@ public class Battle{//Temporary
         }
         return 0;
     }
-    public static void battleCalculator(Entity attacker,Entity defender){
+    public static void battleCalculator(Entity attacker, Entity defender){
         double damage = attacker.getAtk();
         if(Math.random() <= attacker.getCritChance()){
             System.out.println("Critical Hit!");
@@ -84,9 +85,12 @@ public class Battle{//Temporary
             }
             else {
                 defender.setHp(defender.getHp() - (damage - defender.getDef()));
-                System.out.printf("%s dealt %.0f HP to %s!%n",attacker,(damage - defender.getDef()),defender);
+                System.out.printf("%s dealt %.1f HP to %s!%n",attacker,(damage - defender.getDef()),defender);
             }
         }
         if(defender.getHp() <= 0) defender.setHp(0);
+    }
+    public static boolean previousWin() {
+        return win == 1;
     }
 }

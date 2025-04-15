@@ -29,6 +29,7 @@ public class Item {
     public String toString() {
         return name + " has a value of " + value;
     }
+    // Method for checking if a word starts with a vowel
     public boolean startsWithVowel() {
         if(this.name.charAt(0) == 'a'
         || this.name.charAt(0) == 'e'
