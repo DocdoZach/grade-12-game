@@ -3,6 +3,8 @@ public class Battle{//Temporary
     public static Scanner input = new Scanner(System.in);
     public static int abilityUses; //Coins is Temporary
     private static int win = 0;
+
+    // Start a battle
     public static void battler(Player player,SmallEnemy enemy){
         System.out.println("----------\n" + enemy + " appeared!");
         String skillClass = "mage"/*Temporary*/, loseText = " was defeated by " + enemy;
