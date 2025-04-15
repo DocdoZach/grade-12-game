@@ -7,13 +7,13 @@ public class Battle{//Temporary
     // Start a battle
     public static void battler(Player player,SmallEnemy enemy){
         System.out.println("----------\n" + enemy + " appeared!");
-        String skillClass = "mage"/*Temporary*/, loseText = " was defeated by " + enemy;
+        String skillClass = "mage"/*Temporary*/, loseText = "got defeated by " + enemy;
         boolean skip, run;
         int coins = enemy.getCoinValue();
         abilityUses = 1;
         while(win==0){
             game.clear();
-            System.out.printf("%s has %.1f/%.1f HP remaining.%n%s has %.1f/%.1f HP remaining.%nOptions:%n1. Attack%n2. Bag%n3. Use Ability%n4. Run%n", player, player.getHp(), player.getMaxHp(), enemy, enemy.getHp(), enemy.getMaxHp());
+            System.out.printf("%s has %.1f/%.1f HP remaining.%n%s has %.1f/%.1f HP remaining.%n----------%nOptions:%n1. Attack%n2. Bag%n3. Use Ability%n4. Run%n----------%n", player, player.getHp(), player.getMaxHp(), enemy, enemy.getHp(), enemy.getMaxHp());
             skip = false;
             run = false;
             switch(Integer.parseInt(input.nextLine())) {
@@ -51,10 +51,10 @@ public class Battle{//Temporary
             }
             if(skip) continue;
             if(win==1){
-                System.out.printf("You defeated %s! They dropped %d coins!\n",enemy,coins);
+                System.out.printf("----------%nYou defeated %s! They dropped %d coins!%n----------%n",enemy,coins);
                 player.setBal(player.getBal()+coins);
             }else if(win==-1){
-                System.out.printf("You %s and you dropped %d coins!\n",loseText,coins);
+                System.out.printf("----------%nYou %s and you dropped %d coins!%n----------%n",loseText,coins);
                 player.setBal(player.getBal()-coins);
             }
         }

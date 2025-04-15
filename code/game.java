@@ -57,7 +57,7 @@ public class game {
                     } else if (random < 0.8) {
                         Battle.battler(p, g);
                     } else Battle.battler(p, b);
-                } while (!Battle.previousWin());
+                } while (Battle.previousWin());
                 System.out.println("final stats: wip");
                 break;
             case 3:
