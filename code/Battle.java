@@ -1,24 +1,27 @@
 import java.util.Scanner;
 public class Battle{//Temporary
     public static Scanner input = new Scanner(System.in);
-    public static int abilityUses; //Coins is Temporary
     private static int win = 0;
-
     // Start a battle
     public static void battler(Player player,SmallEnemy enemy){
+        game.clear();
         System.out.println("----------\n" + enemy + " appeared!");
-        String skillClass = "mage"/*Temporary*/, loseText = "got defeated by " + enemy;
-        boolean skip, run;
-        int coins = enemy.getCoinValue();
-        abilityUses = 1;
-        while(win==0){
-            game.clear();
-            System.out.printf("%s has %.1f/%.1f HP remaining.%n%s has %.1f/%.1f HP remaining.%n----------%nOptions:%n1. Attack%n2. Bag%n3. Use Ability%n4. Run%n----------%n", player, player.getHp(), player.getMaxHp(), enemy, enemy.getHp(), enemy.getMaxHp());
+        String loseText = "got defeated by " + enemy,
+        skillClass = "mage"/*Temporary*/;
+        boolean skip;
+        int abilityUses = 1, coins = enemy.getCoinValue(), plays;
+        while(win == 0){
+            System.out.printf("----------%n%s has %.1f/%.1f HP remaining.%n%s has %.1f/%.1f HP remaining.%n----------%nOptions:%n1. Attack%n2. Bag%n3. Use Ability%n4. Run%n----------%n", player, player.getHp(), player.getMaxHp(), enemy, enemy.getHp(), enemy.getMaxHp());
             skip = false;
-            run = false;
-            switch(Integer.parseInt(input.nextLine())) {
+            try{
+                plays = Integer.parseInt(input.nextLine());
+            }catch(Exception e){
+                plays = 0;
+            }
+            game.clear();
+            switch(plays) {
                 case 1://Battle
-                    win=battleEnemy(player,enemy);
+                    win = battleEnemy(player,enemy);
                     break;
                 case 2://Bag
                     System.out.println(player.getInv());
@@ -31,6 +34,9 @@ public class Battle{//Temporary
                             case "mage":
                                 enemy.setHp(enemy.getHp()/2.0);
                                 break;
+                            case "archer":
+                                player.setHp((player.getMaxHp()/2.0)+player.getHp());
+                                if(player.getHp()>=player.getMaxHp()) player.setHp(player.getMaxHp());
                             default: break;
                         }
                         abilityUses--;
@@ -43,19 +49,22 @@ public class Battle{//Temporary
                     }
                     break;
                 case 4://Run
-                    loseText="ran";
+                    loseText = "ran";
                     win = -1;
                     break;
                 default:
-                    skip = true; break;
+                    skip = true;
+                    skillClass = "archer"/*Temporary*/;
+                    break; 
             }
             if(skip) continue;
-            if(win==1){
+            if(win == 1){
                 System.out.printf("----------%nYou defeated %s! They dropped %d coins!%n----------%n",enemy,coins);
                 player.setBal(player.getBal()+coins);
-            }else if(win==-1){
+            }else if(win == -1){
                 System.out.printf("----------%nYou %s and you dropped %d coins!%n----------%n",loseText,coins);
                 player.setBal(player.getBal()-coins);
+                player.setHp(player.getMaxHp()/2.0);
             }
         }
     }
