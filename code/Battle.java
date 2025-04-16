@@ -66,6 +66,7 @@ public class Battle{//Temporary
                 player.setHp(player.getMaxHp()/2.0);
             }
         }while(win == 0);
+        input.nextLine();
     }
     //Does Speed calculations for Battle
     public static int battleEnemy(Entity player, Entity enemy){

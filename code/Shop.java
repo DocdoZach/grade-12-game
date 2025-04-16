@@ -1,80 +1,37 @@
 import java.util.Scanner;
-
 public class Shop {
-    private Item item1;
-    private Item item2;
-    private Item item3;
-    private Item item4;
     private int itemCount;
-    private int stock1;
-    private int stock2;
-    private int stock3;
-    private int stock4;
-
+    private Item[] item;
+    private int[] stock;
+    private Item empty = new Item("", -1, 0);
+    public static Scanner input = new Scanner(System.in);
     Shop(Item item1, Item item2, Item item3, Item item4, int stock1, int stock2, int stock3, int stock4) {
         this.itemCount = 4;
-        this.item1 = item1;
-        this.item2 = item2;
-        this.item3 = item3;
-        this.item4 = item4;
-        this.stock1 = stock1;
-        this.stock2 = stock2;
-        this.stock3 = stock3;
-        this.stock4 = stock4;
+        this.item = new Item[] {item1, item2, item3, item4};
+        this.stock = new int[] {stock1, stock2, stock3, stock4};
     }
-
     Shop(Item item1, Item item2, Item item3, int stock1, int stock2, int stock3) {
-        Item empty = new Item("", -1, 0);
         this.itemCount = 3;
-        this.item1 = item1;
-        this.item2 = item2;
-        this.item3 = item3;
-        this.item4 = empty;
-        this.stock1 = stock1;
-        this.stock2 = stock2;
-        this.stock3 = stock3;
+        this.item = new Item[] {item1, item2, item3, empty};
+        this.stock = new int[] {stock1, stock2, stock3, 0};
     }
-
     Shop(Item item1, Item item2, int stock1, int stock2) {
-        Item empty = new Item("", -1, 0);
         this.itemCount = 2;
-        this.item1 = item1;
-        this.item2 = item2;
-        this.item3 = empty;
-        this.item4 = empty;
-        this.stock1 = stock1;
-        this.stock2 = stock2;
+        this.item = new Item[] {item1, item2, empty, empty};
+        this.stock = new int[] {stock1, stock2, 0, 0};
     }
-
     Shop(Item item1, int stock1) {
-        Item empty = new Item("", -1, 0);
         this.itemCount = 1;
-        this.item1 = item1;
-        this.item2 = empty;
-        this.item3 = empty;
-        this.item4 = empty;
-        this.stock1 = stock1;
+        this.item = new Item[] {item1, empty, empty, empty};
+        this.stock = new int[] {stock1, 0, 0, 0};
     }
-
     public void menu(Player customer) {
-        Scanner input = new Scanner(System.in);
-
         // Shop menu option select
         int choice = 0;
         System.out.println("Welcome to the shop. ");
         while(true) {
-            System.out.println("----------\nPlease select an item to buy.");
-            System.out.println("1. " + item1.getName() + " x" + stock1 + ", $" + item1.getValue() + " each");
-            if(!item2.getName().isEmpty()) {
-                System.out.println("2. " + item2.getName() + " x" + stock2 + ", $" + item2.getValue() + " each");
-            }
-            if(!item3.getName().isEmpty()) {
-                System.out.println("3. " + item3.getName() + " x" + stock3 + ", $" + item3.getValue() + " each");
-            }
-            if(!item4.getName().isEmpty()) {
-                System.out.println("4. " + item4.getName() + " x" + stock4 + ", $" + item4.getValue() + " each");
-            }
-
+            System.out.println("----------\nYou have "+customer.getBal()+" coins\nPlease select an item to buy.");
+            for(int i=0;i<this.itemCount;i++) System.out.printf("%d. %s x%d, $%d each%n",i+1,item[i].getName(),stock[i],item[i].getValue());
             while(true) {
                 try {
                     if(itemCount == 1) System.out.print("Your choice (1, or 0 to exit): ");
@@ -87,101 +44,43 @@ public class Shop {
                     input.nextLine();
                 }
             }
-
-            // Switch statement for chosen option
-            switch(choice) {
-                case 1:
-                    if(customer.getBal() < item1.getValue()) System.out.println("You don't have enough money!");
-                    else if(stock1 < 1) System.out.println("This item is out of stock!");
-                    else {
-                        customer.setBal(customer.getBal() - item1.getValue());
-                        customer.addItem(item1);
-                        stock1--;
-                        System.out.print("You got a");
-                        if(item1.startsWithVowel()) {
-                            System.out.print("n");
-                        }
-                        System.out.println(" " + item1.getName() + "!");
-                    }
-                    break;
-                case 2:
-                    if(customer.getBal() < item2.getValue()) System.out.println("You don't have enough money!");
-                    else if(stock2 < 1) System.out.println("This item is out of stock!");
-                    else {
-                        customer.setBal(customer.getBal() - item2.getValue());
-                        customer.addItem(item2);
-                        stock2--;
-                        System.out.print("You got a");
-                        if(item2.startsWithVowel()) {
-                            System.out.print("n");
-                        }
-                        System.out.println(" " + item2.getName() + "!");
-                    }
-                    break;
-                case 3:
-                    if(customer.getBal() < item3.getValue()) System.out.println("You don't have enough money!");
-                    else if(stock3 < 1) System.out.println("This item is out of stock!");
-                    else {
-                        customer.setBal(customer.getBal() - item3.getValue());
-                        customer.addItem(item3);
-                        stock3--;
-                        System.out.print("You got a");
-                        if(item3.startsWithVowel()) {
-                            System.out.print("n");
-                        }
-                        System.out.println(" " + item3.getName() + "!");
-                    }
-                    break;
-                case 4:
-                    if(customer.getBal() < item4.getValue()) System.out.println("You don't have enough money!");
-                    else if(stock4 < 1) System.out.println("This item is out of stock!");
-                    else {
-                        customer.setBal(customer.getBal() - item4.getValue());
-                        customer.addItem(item4);
-                        stock4--;
-                        System.out.print("You got a");
-                        if(item4.startsWithVowel()) {
-                            System.out.print("n");
-                        }
-                        System.out.println(" " + item4.getName() + "!");
-                    }
-                    break;
-                default:
-                    break;
-            }
+            game.clear();
+            // If statement for chosen option
             if(choice == 0) break;
+            else{
+                if(customer.getBal() < item[choice-1].getValue()) System.out.println("You don't have enough money!");
+                else if(stock[choice-1] < 1) System.out.println("This item is out of stock!");
+                else {
+                    customer.setBal(customer.getBal() - item[choice-1].getValue());
+                    customer.addItem(item[choice-1]);
+                    stock[choice-1]--;
+                    System.out.println("You got a" + ((item[choice-1].startsWithVowel()) ? "n " : " ") + item[choice-1].getName() + "!");
+                }
+            }
         }
     }
-
     public Item getItem1() {
-        return item1;
+        return item[0];
     }
-
     public Item getItem2() {
-        return item2;
+        return item[1];
     }
-
     public Item getItem3() {
-        return item3;
+        return item[2];
     }
-
     public Item getItem4() {
-        return item4;
+        return item[3];
     }
-
     public void setItem1(Item item1) {
-        this.item1 = item1;
+        this.item[0] = item1;
     }
-
     public void setItem2(Item item2) {
-        this.item2 = item2;
+        this.item[1] = item2;
     }
-
     public void setItem3(Item item3) {
-        this.item3 = item3;
+        this.item[2] = item3;
     }
-
     public void setItem4(Item item4) {
-        this.item4 = item4;
+        this.item[3] = item4;
     }
 }

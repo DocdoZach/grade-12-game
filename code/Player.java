@@ -13,7 +13,7 @@ public class Player extends Entity{
         this.inv = inv;
         critChance = 0.25;
         dodgeChance = 0;
-        playerClass = "mage";
+        playerClass = "default";
     }
     public double getCritChance(){
         return critChance;

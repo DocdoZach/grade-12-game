@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Item {
     private String name;
@@ -34,12 +32,6 @@ public class Item {
     }
     // Method for checking if a word starts with a vowel
     public boolean startsWithVowel() {
-        if(this.name.charAt(0) == 'a'
-        || this.name.charAt(0) == 'e'
-        || this.name.charAt(0) == 'i'
-        || this.name.charAt(0) == 'o'
-        || this.name.charAt(0) == 'u') {
-            return true;
-        } else return false;
+        return "AEIOUaeiou".indexOf(this.name.charAt(0)) != -1;
     }
 }
