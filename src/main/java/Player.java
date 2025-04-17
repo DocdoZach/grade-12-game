@@ -13,9 +13,10 @@ public class Player extends Entity{
         super(name, maxHp, atk, def, spd);
         this.bal = bal;
         this.inv = inv;
-        critChance = 0.25;
         dodgeChance = 0;
+        critChance = 0.25;
         playerClass = "default";
+        addItem(new Item("Stick", -1, 1));
     }
     public double getCritChance(){
         return critChance;
