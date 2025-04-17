@@ -30,6 +30,20 @@ public class game {
         System.out.print("Enter your name: ");
         p.setName(input.nextLine());
         p.addItem(stick);
+
+        boolean classSelected = false;
+        do{
+            System.out.print("Choose your class: ");
+            switch(input.nextLine()){
+                case "fred": classSelected = true; break;
+                case "archer": p.setItem(bow,0); classSelected = true; p.setPlayerClass(); break;
+                case "mage": p.setItem(staff,0); classSelected = true; p.setPlayerClass(); break;
+                case "warrior": p.setItem(sword,0); classSelected = true; p.setPlayerClass(); break;
+                default: clear(); System.out.println("Not an option.");
+            }
+        }while(!classSelected);
+        System.out.println("You set your class to "+p.getPlayerClass()+".");
+
         int choice = 0;
         // Main menu option select
         while(true) {
@@ -37,7 +51,7 @@ public class game {
             System.out.println("----------\nWIP Game Name Debug menu\n1. Test Battle\n2. Test Endless Mode\n3. Test Shop\n4. Change Weapon\n5. Upgrade Weapon\n6. Quit");
             while(true) {
                 try {
-                    System.out.print("Select an option (1-6): ");
+                    System.out.print("Select an option (1-5): ");
                     choice = Integer.parseInt(input.nextLine());
                     if (choice < 1 || choice > 6)  System.out.print("Invalid choice. ");
                     else break;
@@ -73,21 +87,17 @@ public class game {
                     threeCents.menu(p);
                     break;
                 case 4:
+                    classSelected = false;
                     do{
                         System.out.print("Choose your class: ");
                         switch(input.nextLine()){
-                            case "archer": p.setItem(bow,0); break;
-                            case "mage": p.setItem(staff,0); break;
-                            case "warrior": p.setItem(sword,0); break;
+                            case "archer": p.setItem(bow,0); classSelected = true; p.setPlayerClass(); break;
+                            case "mage": p.setItem(staff,0); classSelected = true; p.setPlayerClass(); break;
+                            case "warrior": p.setItem(sword,0); classSelected = true; p.setPlayerClass(); break;
                             default: clear(); System.out.println("Not an option.");
                         }
-                        if(!(p.getInvAtIndex(0).equals("empty"))){
-                            p.setPlayerClass();
-                            break;
-                        }
-                    }while(true);
-                    System.out.print("You changed your class to "+p.getPlayerClass()+".\nPress enter to return to the main menu.");
-                    input.nextLine();
+                    }while(!classSelected);
+                    System.out.println("You changed your class to "+p.getPlayerClass()+".");
                     break;
                 case 5:
                     switch(p.getInvAtIndex(0)){
