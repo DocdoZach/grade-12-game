@@ -38,9 +38,9 @@ public class Player extends Entity{
     public String getInv() {
         String output = "";
         if(this.inv.isEmpty()) return "Your bag is empty.";
-        for(int i = 0; i < 10; i++) {
-            System.out.print("Your bag: ");
-            output += inv.get(i).getName();
+        System.out.print("Your bag: ");
+        for (Item item : this.inv) {
+            output += item.getName();
             output += ", ";
         }
         return output;
