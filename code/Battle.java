@@ -66,6 +66,7 @@ public class Battle{//Temporary
                 player.setHp(player.getMaxHp()/2.0);
             }
         }while(win == 0);
+        System.out.print("Press enter to continue.");
         input.nextLine();
     }
     //Does Speed calculations for Battle

@@ -21,7 +21,7 @@ public class game {
         Item bow = new Item("Bow", -1, 2);
         Item superBow = new Item("Super Bow", -1, 4);
 
-        //Instantiate shops
+        // Instantiate shop
         Shop threeCents = new Shop(hotCocoa, applePie, bread, apple, 1, 3, 5, 7);
 
         // Name select
@@ -31,8 +31,7 @@ public class game {
         int choice = 0;
         // Main menu option select
         while(true) {
-            clear();
-            System.out.println("WIP Game Name Debug menu\n1. Test Battle\n2. Test Endless Mode\n3. Test Shop\n4. Change Weapon\n5. Quit");
+            System.out.println("----------\nWIP Game Name Debug menu\n1. Test Battle\n2. Test Endless Mode\n3. Test Shop\n4. Change Weapon (Unstable, Only use once)\n5. Quit");
             while(true) {
                 try {
                     System.out.print("Select an option (1-5): ");
