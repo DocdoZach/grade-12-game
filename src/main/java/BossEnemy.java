@@ -1,3 +1,5 @@
+package main.java;
+
 public class BossEnemy extends BigEnemy {
     private double dodgeChance;
     BossEnemy(String name, int maxHp, int atk, int def, int spd){

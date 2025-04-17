@@ -1,3 +1,5 @@
+package main.java;
+
 public class SmallEnemy extends Entity {
     private int coinValue;
     SmallEnemy(String name, int maxHp, int atk, int def, int spd) {

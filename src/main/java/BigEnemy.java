@@ -1,3 +1,5 @@
+package main.java;
+
 public class BigEnemy extends SmallEnemy{
     private double critChance;
     BigEnemy(String name, int maxHp, int atk, int def, int spd) {

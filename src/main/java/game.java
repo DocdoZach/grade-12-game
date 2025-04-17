@@ -1,3 +1,5 @@
+package main.java;
+
 import java.util.*;
 public class game {
     public static Scanner input = new Scanner(System.in);

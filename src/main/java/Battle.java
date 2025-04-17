@@ -1,3 +1,5 @@
+package main.java;
+
 import java.util.Scanner;
 public class Battle{//Temporary
     public static Scanner input = new Scanner(System.in);
