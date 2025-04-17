@@ -33,6 +33,7 @@ public class game {
         int choice = 0;
         // Main menu option select
         while(true) {
+            clear();
             System.out.println("----------\nWIP Game Name Debug menu\n1. Test Battle\n2. Test Endless Mode\n3. Test Shop\n4. Change Weapon (Unstable, Only use once)\n5. Quit");
             while(true) {
                 try {
