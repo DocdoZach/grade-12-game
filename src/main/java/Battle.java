@@ -1,8 +1,9 @@
 package main.java;
 
 import java.util.Scanner;
-public class Battle{//Temporary
+public class Battle{
     public static Scanner input = new Scanner(System.in);
+    public static int totalWins;
     private static int win = 0;
     // Start a battle
     public static void battler(Player player,SmallEnemy enemy){
@@ -62,6 +63,7 @@ public class Battle{//Temporary
                 System.out.printf("----------%nYou defeated %s! They dropped %d coins!%n----------%n",enemy,coins);
                 player.setBal(player.getBal()+coins);
                 enemy.setHp(enemy.getMaxHp()/2.0);
+                totalWins++;
             }else if(win == -1){
                 System.out.printf("----------%nYou %s and you dropped %d coins!%n----------%n",loseText,coins);
                 player.setBal(player.getBal()-coins);

@@ -1,7 +1,6 @@
 package main.java;
 
 import java.util.ArrayList;
-
 public class Player extends Entity{
     private double critChance;
     private double dodgeChance;
