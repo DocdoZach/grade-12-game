@@ -22,10 +22,7 @@ public class game {
         Item bow = new Item("Bow", -1, 2);
         Item superBow = new Item("Super Bow", -1, 4);
 
-        //Instantiate enemies/shops
-        BossEnemy b = new BossEnemy("Architect", 12, 8, 6, 10);
-        BigEnemy g = new BigEnemy("Guard", 8, 4, 3, 3);
-        SmallEnemy s = new SmallEnemy("Small Dude", 5, 2, 1, 1);
+        // Instantiate shop
         Shop threeCents = new Shop(hotCocoa, applePie, bread, apple, 1, 3, 5, 7);
 
         // Name select
@@ -35,7 +32,7 @@ public class game {
         int choice = 0;
         // Main menu option select
         while(true) {
-            System.out.println("WIP Game Name Debug menu\n1. Test Battle\n2. Test Endless Mode\n3. Test Shop\n4. Change Weapon (Unstable, Only use once)\n5. Quit");
+            System.out.println("----------\nWIP Game Name Debug menu\n1. Test Battle\n2. Test Endless Mode\n3. Test Shop\n4. Change Weapon (Unstable, Only use once)\n5. Quit");
             while(true) {
                 try {
                     System.out.print("Select an option (1-5): ");
