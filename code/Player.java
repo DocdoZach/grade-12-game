@@ -53,6 +53,9 @@ public class Player extends Entity{
     public void removeItem(Item item) {
         this.inv.remove(item);
     }
+    public void setItem(Item item, int index){
+        this.inv.set(index,item);
+    }
     public String getPlayerClass(){
         return playerClass;
     }
