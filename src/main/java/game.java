@@ -34,16 +34,14 @@ public class game {
         // Main menu option select
         while(true) {
             clear();
-            System.out.println("----------\nWIP Game Name Debug menu\n1. Test Battle\n2. Test Endless Mode\n3. Test Shop\n4. Change Weapon (Unstable, Only use once)\n5. Quit");
+            System.out.println("----------\nWIP Game Name Debug menu\n1. Test Battle\n2. Test Endless Mode\n3. Test Shop\n4. Change Weapon\n5. Upgrade Weapon\n6. Quit");
             while(true) {
                 try {
-                    System.out.print("Select an option (1-5): ");
+                    System.out.print("Select an option (1-6): ");
                     choice = Integer.parseInt(input.nextLine());
-                    if (choice < 1 || choice > 5)  System.out.print("Invalid choice. ");
+                    if (choice < 1 || choice > 6)  System.out.print("Invalid choice. ");
                     else break;
-                } catch (Exception e) {
-                    System.out.print("Invalid choice. ");
-                }
+                } catch (Exception e) { System.out.print("Invalid choice. ");}
             }
             // Switch statement for chosen option
             switch (choice) {
@@ -88,8 +86,20 @@ public class game {
                             break;
                         }
                     }while(true);
+                    System.out.print("You changed your class to "+p.getPlayerClass()+".\nPress enter to return to the main menu.");
+                    input.nextLine();
                     break;
                 case 5:
+                    switch(p.getInvAtIndex(0)){
+                        case "Bow": p.setItem(superBow,0); System.out.println("Weapon Upgraded!"); break;
+                        case "Staff": p.setItem(ultraStaff,0); System.out.println("Weapon Upgraded!"); break;
+                        case "Sword": p.setItem(megaSword,0); System.out.println("Weapon Upgraded!"); break;
+                        default: clear(); System.out.println("Your weapon can't be upgraded.");
+                    }
+                    System.out.print("Press enter to return to the main menu.");
+                    input.nextLine();
+                    break;
+                case 6:
                     System.exit(0);
             }
         }
