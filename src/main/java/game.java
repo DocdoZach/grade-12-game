@@ -53,13 +53,21 @@ public class game {
                     break;
                 case 2:
                     System.out.println("WIP");
+                    int wins = 0;
+                    int battlesSinceShop = 0;
                     double random = Math.random();
                     do {
+                        threeCents.menu(p);
                         if (random < 0.5) Battle.battler(p, new SmallEnemy("Small Dude", 5, 2, 1, 1));
                         else if (random < 0.8) Battle.battler(p, new BigEnemy("Guard", 8, 4, 3, 3));
                         else Battle.battler(p, new BossEnemy("Architect", 12, 8, 6, 10));
+                        if(Battle.previousWin()) {
+                            wins++;
+                            battlesSinceShop++;
+                        }
+                        if(battlesSinceShop == 6) threeCents.menu(p);
                     } while (Battle.previousWin());
-                    System.out.print("final stats: wip\nPress enter to return to the main menu.");
+                    System.out.print("----------\nFinal stats\nWins: " + wins + "\nPress enter to return to the main menu.");
                     input.nextLine();
                     clear();
                     break;

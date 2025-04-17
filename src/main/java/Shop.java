@@ -85,4 +85,28 @@ public class Shop {
     public void setItem4(Item item4) {
         this.item[3] = item4;
     }
+    public int getStock1() {
+        return stock[0];
+    }
+    public int getStock2() {
+        return stock[1];
+    }
+    public int getStock3() {
+        return stock[2];
+    }
+    public int getStock4() {
+        return stock[3];
+    }
+    public void setStock1(int stock1) {
+        this.stock[0] = stock1;
+    }
+    public void setStock2(int stock2) {
+        this.stock[1] = stock2;
+    }
+    public void setStock3(int stock3) {
+        this.stock[2] = stock3;
+    }
+    public void setStock4(int stock4) {
+        this.stock[3] = stock4;
+    }
 }
