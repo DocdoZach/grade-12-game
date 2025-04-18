@@ -8,12 +8,12 @@ public class Battle{
     // Start a battle
     public static void battler(Player player,SmallEnemy enemy){
         game.clear();
-        System.out.println("----------\n" + enemy + " appeared!");
+        System.out.println(game.divider + enemy + " appeared!");
         String loseText = "got defeated by " + enemy;
         boolean skip;
         int abilityUses = 1, coins = enemy.getCoinValue(), plays;
         do{
-            System.out.printf("----------%n%s has %.1f/%.1f HP remaining.%n%s has %.1f/%.1f HP remaining.%n----------%nOptions:%n1. Attack%n2. Bag%n3. Use Ability%n4. Run%n----------%n", player, player.getHp(), player.getMaxHp(), enemy, enemy.getHp(), enemy.getMaxHp());
+            System.out.printf(game.divider + "%s has %.1f/%.1f HP remaining.%n%s has %.1f/%.1f HP remaining.%n" + game.divider + "Options:%n1. Attack%n2. Bag%n3. Use Ability%n4. Run%n"+game.divider, player, player.getHp(), player.getMaxHp(), enemy, enemy.getHp(), enemy.getMaxHp());
             skip = false;
             do{
                 try{plays = Integer.parseInt(input.nextLine());game.clear();break;}
@@ -60,12 +60,12 @@ public class Battle{
             }
             if(skip) continue;
             if(win == 1){
-                System.out.printf("----------%nYou defeated %s! They dropped %d coins!%n----------%n",enemy,coins);
+                System.out.printf(game.divider + "You defeated %s! They dropped %d coins!%n" + game.divider,enemy,coins);
                 player.setBal(player.getBal()+coins);
                 enemy.setHp(enemy.getMaxHp()/2.0);
                 totalWins++;
             }else if(win == -1){
-                System.out.printf("----------%nYou %s and you dropped %d coins!%n----------%n",loseText,coins);
+                System.out.printf(game.divider + "You %s and you dropped %d coins!%n" + game.divider,loseText,coins);
                 player.setBal(player.getBal()-coins);
                 player.setHp(player.getMaxHp()/2.0);
             }

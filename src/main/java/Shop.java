@@ -29,20 +29,19 @@ public class Shop {
     public void menu(Player customer) {
         // Shop menu option select
         int choice = 0;
+        game.clear();
         System.out.println("Welcome to the shop. ");
         while(true) {
             System.out.println("----------\nYou have "+customer.getBal()+" coins\nPlease select an item to buy.");
             for(int i=0;i<this.itemCount;i++) System.out.printf("%d. %s x%d, $%d each%n",i+1,item[i].getName(),stock[i],item[i].getValue());
             while(true) {
                 try {
-                    if(itemCount == 1) System.out.print("Your choice (1, or 0 to exit): ");
-                    else System.out.print("Your choice (1-" + itemCount + ", or 0 to exit): ");
-                    choice = input.nextInt();
+                    System.out.print("Your choice (1" + (itemCount == 1 ? "" : ("-"+itemCount)) + ", or 0 to exit): ");
+                    choice = Integer.parseInt(input.nextLine());
                     if(choice < 0 || choice > itemCount) System.out.print("Invalid choice. ");
                     else break;
                 } catch(Exception e) {
                     System.out.print("Invalid choice. ");
-                    input.nextLine();
                 }
             }
             game.clear();

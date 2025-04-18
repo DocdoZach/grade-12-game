@@ -15,7 +15,7 @@ public class Player extends Entity{
         dodgeChance = 0;
         critChance = 0.25;
         playerClass = "default";
-        addItem(new Item("Stick", -1, 1));
+        this.inv.add(new Item("Fists", -1, 0));
     }
     public double getCritChance(){
         return critChance;
@@ -39,21 +39,25 @@ public class Player extends Entity{
         String output = "";
         if(this.inv.isEmpty()) return "Your bag is empty.";
         System.out.print("Your bag: ");
-        for (Item item : this.inv) {
-            output += item.getName();
-            output += ", ";
-        }
+        for (Item item : this.inv) output += item.getName() + ", ";
         return output;
     }
-    public String getInvAtIndex(int x){
+    public String getInv(int x){
         if(this.inv.isEmpty()) return "empty";
         return inv.get(x).getName();
+    }
+    public int getInvValue(int x){
+        if(this.inv.isEmpty()) return 0;
+        return inv.get(x).getValue();
     }
     public void addItem(Item item) {
         this.inv.add(item);
     }
     public void removeItem(Item item) {
         this.inv.remove(item);
+    }
+    public Item getItem(int index){
+        return this.inv.get(index);
     }
     public void setItem(Item item, int index){
         this.inv.set(index,item);
@@ -64,7 +68,7 @@ public class Player extends Entity{
     public void setPlayerClass(){
         String weapon;
         if(this.inv.isEmpty()) weapon = "none";
-        else weapon = getInvAtIndex(0);
+        else weapon = getInv(0);
         if(weapon.contains("Sword")) this.playerClass="warrior";
         else if(weapon.contains("Staff")) this.playerClass="mage";
         else if(weapon.contains("Bow")) this.playerClass="archer";
