@@ -101,17 +101,57 @@ public class game {
         do{
             clear(); 
             if(choice!=0) System.out.println("Invalid choice. ");
-            System.out.println(divider + "Welcome to (WIP Name)!\n1. Start Endless Mode\n2. Quit\n(0 is Debug)\n" + divider + "Select an option (1-2): ");
+            System.out.println(divider + "Welcome to (WIP Name)!\n1. Story Mode\n2. Start Endless Mode\n3. Quit\n(0 is Debug)\n" + divider + "Select an option (1-2): ");
             try{choice = Integer.parseInt(input.nextLine());}
             catch(Exception e){ choice=-1;}
             switch(choice){
-                case 1: endlessMode(player, shop); break;
-                case 2: System.exit(0);
+                case 1: storyMode(player);
+                case 2: endlessMode(player, shop); break;
+                case 3: System.exit(0);
                 case 0: x=1;
                 default: break;
             }
         }while(x==0);
 
+    }
+    public static void storyMode(Player player) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("----------\nWelcome to the world of Tpircsdiov. The Architect, a mad king, is on a quest to destroy the land of Yrome.\nYou must stop him before he takes over!");
+        String currentLocation = "home";
+        boolean searchedChest = false;
+
+        int choice = 0;
+        while(true) {
+            System.out.println("----------\nYou are at " + currentLocation + ".\nOptions: ");
+            if(currentLocation.equals("home")) {
+                System.out.println("1. Open chest\n2. Leave home\n----------");
+                while(true) {
+                    System.out.print("Select an option: ");
+                    try {
+                        choice = input.nextInt();
+                        if (choice < 1 || choice > 2) {
+                            System.out.print("Invalid input. ");
+                            continue;
+                        }
+                        break;
+                    } catch(Exception e) {
+                        System.out.print("Invalid input. ");
+                        input.next();
+                    }
+                }
+                switch(choice) {
+                    case 1:
+                        if(!searchedChest) {
+                            System.out.println("You took a slice of bread.");
+                            searchedChest = true;
+                        } else System.out.println("The chest is empty.");
+                        break;
+                    case 2:
+                        currentLocation = "village";
+                        break;
+                }
+            }
+        }
     }
     //Endless Mode Code
     public static void endlessMode(Player player, Shop shop){
