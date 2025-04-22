@@ -29,7 +29,6 @@ public class game {
         // Name select
         System.out.print("Enter your name: ");
         p.setName(input.nextLine());
-        int choice = 0;
         // Class select
         String x, y;
         System.out.println("Classes: Mage, Warrior, Archer");
@@ -43,25 +42,14 @@ public class game {
         }while(p.getInv(0).equals("Fists"));
         p.setPlayerClass();
         System.out.println("You set your class to "+p.getPlayerClass()+".");
-
         // Debug menu option select
+        String[] text={"Test Battle","Test Main Menu","Test Shop","Change Weapon","Upgrade Weapon","Quit"};
         while(true) {
             clear();
-            System.out.println(divider + "WIP Game Name Debug Menu\n1. Test Battle\n2. Test Main Menu\n3. Test Shop\n4. Change Weapon\n5. Upgrade Weapon\n6. Quit");
-            while(true) {
-                try {
-                    System.out.print("Select an option (1-6): ");
-                    choice = Integer.parseInt(input.nextLine());
-                    if (choice < 1 || choice > 6)  System.out.print("Invalid choice." + divider);
-                    else break;
-                } catch (Exception e) { System.out.println("Invalid choice. ");}
-            }
-            // Switch statement for chosen option
-            switch (choice) {
-                case 1:
-                    System.out.println("WIP");
-                    Battle.battler(p, new SmallEnemy("Small Dude", 5, 2, 1, 1));
-                    break;
+            System.out.println(divider + "WIP Game Name Debug Menu");
+            // Switch statement for Chosen Option
+            switch (optionSelect(text)) {
+                case 1: Battle.battler(p, new SmallEnemy("Small Dude", 5, 2, 1, 1)); break;
                 case 2: mainMenu(p,threeCents); break;
                 case 3: threeCents.menu(p); break;
                 case 4:
@@ -97,14 +85,12 @@ public class game {
     }
     //Main Menu
     public static void mainMenu(Player player, Shop shop){
-        int choice=0, x=0;
+        int x=0;
+        String[] option={"Story Mode","Endless Mode","Quit"};
         do{
-            clear(); 
-            if(choice!=0) System.out.println("Invalid choice. ");
-            System.out.println(divider + "Welcome to (WIP Name)!\n1. Story Mode\n2. Start Endless Mode\n3. Quit\n(0 is Debug)\n" + divider + "Select an option (1-2): ");
-            try{choice = Integer.parseInt(input.nextLine());}
-            catch(Exception e){ choice=-1;}
-            switch(choice){
+            clear();
+            System.out.println(divider + "Welcome to (WIP Name)");
+            switch(optionSelect(option)){
                 case 1: storyMode(player,shop);
                 case 2: endlessMode(player, shop); break;
                 case 3: System.exit(0);
@@ -112,48 +98,46 @@ public class game {
                 default: break;
             }
         }while(x==0);
-
     }
+    //Story Mode
     public static void storyMode(Player player, Shop shop) {
+        clear();
         System.out.println(divider+"Welcome to the world of Tpircsdiov. The Architect, a mad king, is on a quest to destroy the land of Yrome.\nYou must stop him before he takes over!");
         String currentLocation = "home";
         boolean searchedChest = false;
-
-        while(true) {
-            System.out.println(divider+"You are at " + currentLocation + ".\nOptions: ");
-            if(currentLocation.equals("home")) {
-                gameOptions({""});
-                System.out.print("1. Open chest\n2. Leave home\n"+divider);
-                while(true) {
-                    System.out.print("Select an option: ");
-                    try {
-                        choice = Integer.parseInt(input.nextLine());
-                        if (choice < 1 || choice > 2) {
-                            System.out.print("Invalid input. ");
-                            continue;
-                        }
-                        break;
-                    } catch(Exception e) {
-                        System.out.print("Invalid input. ");
+        //Options
+        String[] home={"Open Chest", "Leave Home"},village={"Look Around", "Leave Village"};
+        //Looking Around
+        while(true){
+            System.out.println(divider + "You are at " + currentLocation + ".\nOptions: ");
+            switch(currentLocation) {
+                case "home":
+                    switch(optionSelect(home)) {
+                        case 1:
+                            if(!searchedChest) {
+                                System.out.println("You took a slice of bread.");
+                                searchedChest = true;
+                            }else System.out.println("The chest is empty.");
+                            break;
+                        case 2:
+                            currentLocation = "village";
+                            break;
                     }
-                }
-                switch(choice) {
+                    break;
+                case "village":
+                switch(optionSelect(village)) {
                     case 1:
-                        if(!searchedChest) {
-                            System.out.println("You took a slice of bread.");
-                            searchedChest = true;
-                        } else System.out.println("The chest is empty.");
+                        System.out.println("You look around.");
                         break;
                     case 2:
-                        currentLocation = "village";
+                        currentLocation = "none";
                         break;
                 }
-            }else if(currentLocation.equals("village")){
-                System.out.print("none");
-                input.nextLine();
-            }else{
-                System.out.print("You are nowhere.");
-                input.nextLine();
+                default:
+                    System.out.print("You are nowhere and fall to the abyss.");
+                    input.nextLine();
+                    System.exit(0);
+                    break;
             }
         }
     }
@@ -179,14 +163,13 @@ public class game {
     public static void clear() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
-    }public int gameOptions(String[] options){
+    //Game Options Screen
+    }public static int optionSelect(String[] options){
         int choice = 0;
-        for(int i=0;i<options.length;i++){
-            System.out.println(i+". "+options[i]);
-        }
+        for(int i=0;i<options.length;i++) System.out.println((i+1)+". "+options[i]);
         System.out.print(divider);
         while(true) {
-            System.out.print("Select an option: ");
+            System.out.print("Select an option (1" + (options.length == 1 ? "" : ("-"+options.length)) + "): ");
             try {
                 choice = Integer.parseInt(input.nextLine());
                 if (choice < 1 || choice > options.length) {
