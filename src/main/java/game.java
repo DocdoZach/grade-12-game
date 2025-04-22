@@ -105,7 +105,7 @@ public class game {
             try{choice = Integer.parseInt(input.nextLine());}
             catch(Exception e){ choice=-1;}
             switch(choice){
-                case 1: storyMode(player);
+                case 1: storyMode(player,shop);
                 case 2: endlessMode(player, shop); break;
                 case 3: System.exit(0);
                 case 0: x=1;
@@ -114,21 +114,20 @@ public class game {
         }while(x==0);
 
     }
-    public static void storyMode(Player player) {
-        Scanner input = new Scanner(System.in);
-        System.out.println("----------\nWelcome to the world of Tpircsdiov. The Architect, a mad king, is on a quest to destroy the land of Yrome.\nYou must stop him before he takes over!");
+    public static void storyMode(Player player, Shop shop) {
+        System.out.println(divider+"Welcome to the world of Tpircsdiov. The Architect, a mad king, is on a quest to destroy the land of Yrome.\nYou must stop him before he takes over!");
         String currentLocation = "home";
         boolean searchedChest = false;
 
-        int choice = 0;
         while(true) {
-            System.out.println("----------\nYou are at " + currentLocation + ".\nOptions: ");
+            System.out.println(divider+"You are at " + currentLocation + ".\nOptions: ");
             if(currentLocation.equals("home")) {
-                System.out.println("1. Open chest\n2. Leave home\n----------");
+                gameOptions({""});
+                System.out.print("1. Open chest\n2. Leave home\n"+divider);
                 while(true) {
                     System.out.print("Select an option: ");
                     try {
-                        choice = input.nextInt();
+                        choice = Integer.parseInt(input.nextLine());
                         if (choice < 1 || choice > 2) {
                             System.out.print("Invalid input. ");
                             continue;
@@ -136,7 +135,6 @@ public class game {
                         break;
                     } catch(Exception e) {
                         System.out.print("Invalid input. ");
-                        input.next();
                     }
                 }
                 switch(choice) {
@@ -150,6 +148,12 @@ public class game {
                         currentLocation = "village";
                         break;
                 }
+            }else if(currentLocation.equals("village")){
+                System.out.print("none");
+                input.nextLine();
+            }else{
+                System.out.print("You are nowhere.");
+                input.nextLine();
             }
         }
     }
@@ -175,5 +179,23 @@ public class game {
     public static void clear() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
+    }public int gameOptions(String[] options){
+        int choice = 0;
+        for(int i=0;i<options.length;i++){
+            System.out.println(i+". "+options[i]);
+        }
+        System.out.print(divider);
+        while(true) {
+            System.out.print("Select an option: ");
+            try {
+                choice = Integer.parseInt(input.nextLine());
+                if (choice < 1 || choice > options.length) {
+                    System.out.print("Invalid input. ");
+                    continue;
+                }
+                break;
+            } catch(Exception e) {System.out.print("Invalid input. ");}
+        }
+        return choice;
     }
 }
