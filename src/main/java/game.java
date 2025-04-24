@@ -2,19 +2,22 @@ package main.java;
 
 import java.util.*;
 public class game {
+    // Instantiate Helpful Variables
     public static Scanner input = new Scanner(System.in);
     public static String divider = "----------\n";
-    public static void main(String[] args) {
-        // Instantiate players
-        Player p = new Player("none", 5, 5, 5, 3, 50, new ArrayList<>());
+    // Instantiate player and shop
+    public static Player player;
+    public static Shop threeCents;
 
-        // Instantiate items and shop
-        Item hotCocoa = new Item("Hot Cocoa", 25, p.getMaxHp());
+    public static void main(String[] args) {
+        // Instantiate players, items and shop
+        player=new Player("none", 5, 5, 5, 3, 50, new ArrayList<>());
+        Item hotCocoa = new Item("Hot Cocoa", 25, player.getMaxHp());
         Item apple = new Item("Apple", 3, 3);
         Item bread = new Item("Bread", 5, 5);
         Item salad = new Item("Salad", 7, 8);
         Item applePie = new Item("Apple Pie", 9, 10);
-        Shop threeCents = new Shop(hotCocoa, applePie, bread, apple, 1, 3, 5, 7);
+        threeCents=new Shop(hotCocoa, applePie, bread, apple, 1, 3, 5, 7);
 
         // Instantiate weapons
         Item stick = new Item("Stick", -1, 1);
@@ -28,20 +31,20 @@ public class game {
 
         // Name select
         System.out.print("Enter your name: ");
-        p.setName(input.nextLine());
+        player.setName(input.nextLine());
         // Class select
         String x, y;
         System.out.println("Classes: Mage, Warrior, Archer");
         do{
             System.out.print("Choose your class: ");
             x=input.nextLine();
-            p.setItem(x.equals("fred")?stick:x.equals("archer")?bow:x.equals("mage")?staff:x.equals("warrior")?sword:p.getItem(0),0);
-            if(!p.getInv(0).equals("Fists")) break;
+            player.setItem(x.equals("fred")?stick:x.equals("archer")?bow:x.equals("mage")?staff:x.equals("warrior")?sword:player.getItem(0),0);
+            if(!player.getInv(0).equals("Fists")) break;
             clear();
             System.out.println("Not an option.");
-        }while(p.getInv(0).equals("Fists"));
-        p.setPlayerClass();
-        System.out.println("You set your class to "+p.getPlayerClass()+".");
+        }while(player.getInv(0).equals("Fists"));
+        player.setPlayerClass();
+        System.out.println("You set your class to "+player.getPlayerClass()+".");
         // Debug menu option select
         String[] text={"Test Battle","Test Main Menu","Test Shop","Change Weapon","Upgrade Weapon","Quit"};
         while(true) {
@@ -49,33 +52,33 @@ public class game {
             System.out.println(divider + "WIP Game Name Debug Menu");
             // Switch statement for Chosen Option
             switch (optionSelect(text)) {
-                case 1: Battle.battler(p, new SmallEnemy("Small Dude", 5, 2, 1, 1)); break;
-                case 2: mainMenu(p,threeCents); break;
-                case 3: threeCents.menu(p); break;
+                case 1: Battle.battler(new SmallEnemy("Small Dude", 5, 2, 1, 1)); break;
+                case 2: mainMenu(); break;
+                case 3: threeCents.menu(); break;
                 case 4:
-                    y=p.getInv(0);
+                    y=player.getInv(0);
                     do{
                         System.out.print("Choose your class: ");
                         x=input.nextLine();
                         switch(x){
-                            case "archer": p.setItem(bow,0); break;
-                            case "mage": p.setItem(staff,0); break;
-                            case "warrior": p.setItem(sword,0); break;
-                            case "fred": p.setItem(stick,0); break;
+                            case "archer": player.setItem(bow,0); break;
+                            case "mage": player.setItem(staff,0); break;
+                            case "warrior": player.setItem(sword,0); break;
+                            case "fred": player.setItem(stick,0); break;
                             default: clear(); System.out.println("Not an option.");
                         }
-                        if(p.getInv(0).equals(p.getInv(0))){
+                        if(player.getInv(0).equals(player.getInv(0))){
                             clear();
                             System.out.println("Class already chosen.");
                         }
-                    }while(p.getInv(0).equals(y));
-                    p.setPlayerClass();
-                    System.out.println("You changed your class to "+p.getPlayerClass()+".\nPress enter to return to the main menu.");
+                    }while(player.getInv(0).equals(y));
+                    player.setPlayerClass();
+                    System.out.println("You changed your class to "+player.getPlayerClass()+".\nPress enter to return to the main menu.");
                     input.nextLine();
                     break;
                 case 5:
-                    System.out.print("Your weapon "+((p.getInvValue(0)!=-2) ? "was" : "can't be")+" upgraded.\nPress enter to return to the main menu.");
-                    p.setItem(p.getInv(0).equals("Stick")?powerStick:p.getInv(0).equals("Bow")?superBow:p.getInv(0).equals("Staff")?ultraStaff:p.getInv(0).equals("Sword")?megaSword:p.getItem(0),0);
+                    System.out.print("Your weapon "+((player.getInvValue(0)!=-2) ? "was" : "can't be")+" upgraded.\nPress enter to return to the main menu.");
+                    player.setItem(player.getInv(0).equals("Stick")?powerStick:player.getInv(0).equals("Bow")?superBow:player.getInv(0).equals("Staff")?ultraStaff:player.getInv(0).equals("Sword")?megaSword:player.getItem(0),0);
                     input.nextLine();
                     break;
                 case 6: System.exit(0);
@@ -84,15 +87,15 @@ public class game {
         }
     }
     //Main Menu
-    public static void mainMenu(Player player, Shop shop){
+    public static void mainMenu(){
         int x=0;
         String[] option={"Story Mode","Endless Mode","Quit"};
         do{
             clear();
             System.out.println(divider + "Welcome to (WIP Name)");
             switch(optionSelect(option)){
-                case 1: storyMode(player,shop);
-                case 2: endlessMode(player, shop); break;
+                case 1: storyMode();
+                case 2: endlessMode(); break;
                 case 3: System.exit(0);
                 case 0: x=1;
                 default: break;
@@ -100,7 +103,7 @@ public class game {
         }while(x==0);
     }
     //Story Mode
-    public static void storyMode(Player player, Shop shop) {
+    public static void storyMode() {
         clear();
         System.out.println(divider+"Welcome to the world of Tpircsdiov. The Architect, a mad king, is on a quest to destroy the land of Yrome.\nYou must stop him before he takes over!");
         String currentLocation = "home";
@@ -142,7 +145,7 @@ public class game {
         }
     }
     //Endless Mode Code
-    public static void endlessMode(Player player, Shop shop){
+    public static void endlessMode(){
         int battlesSinceShop = 0;
         double random = Math.random();
         Battle.totalWins = 0;
@@ -150,10 +153,10 @@ public class game {
         player.setHp(player.getMaxHp());
         do{
             clear();
-            if(battlesSinceShop++%6 == 0) shop.menu(player);
-            if(random < 0.5) Battle.battler(player, new SmallEnemy("Small Dude", 5, 2, 1, 1));
-            else if(random < 0.85) Battle.battler(player, new BigEnemy("Guard", 8, 4, 3, 3));
-            else Battle.battler(player, new BossEnemy("Architect", 12, 8, 6, 10));
+            if(battlesSinceShop++%6 == 0) threeCents.menu();
+            if(random < 0.5) Battle.battler(new SmallEnemy("Small Dude", 5, 2, 1, 1));
+            else if(random < 0.85) Battle.battler(new BigEnemy("Guard", 8, 4, 3, 3));
+            else Battle.battler(new BossEnemy("Architect", 12, 8, 6, 10));
         }while(Battle.previousWin());
         System.out.print(divider + "Final stats\nWins: " + Battle.totalWins + "\nPress enter to return to the main menu.");
         input.nextLine();

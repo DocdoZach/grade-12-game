@@ -6,14 +6,14 @@ public class Battle{
     public static int totalWins;
     private static int win = 0;
     // Start a battle
-    public static void battler(Player player,SmallEnemy enemy){
+    public static void battler(SmallEnemy enemy){
         game.clear();
         System.out.println(game.divider + enemy + " appeared!");
         String loseText = "got defeated by " + enemy;
         boolean skip;
         int abilityUses = 1, coins = enemy.getCoinValue(), plays;
         do{
-            System.out.printf(game.divider + "%s has %.1f/%.1f HP remaining.%n%s has %.1f/%.1f HP remaining.%n" + game.divider + "Options:%n1. Attack%n2. Bag%n3. Use Ability%n4. Run%n"+game.divider, player, player.getHp(), player.getMaxHp(), enemy, enemy.getHp(), enemy.getMaxHp());
+            System.out.printf(game.divider + "%s has %.1f/%.1f HP remaining.%n%s has %.1f/%.1f HP remaining.%n" + game.divider + "Options:%n1. Attack%n2. Bag%n3. Use Ability%n4. Run%n"+game.divider, game.player, game.player.getHp(), game.player.getMaxHp(), enemy, enemy.getHp(), enemy.getMaxHp());
             skip = false;
             do{
                 try{plays = Integer.parseInt(input.nextLine());game.clear();break;}
@@ -21,29 +21,29 @@ public class Battle{
             }while(true);
             switch(plays) {
                 case 1://Battle
-                    win = battleEnemy(player,enemy);
+                    win = battleEnemy(game.player,enemy);
                     break;
                 case 2://Bag
-                    System.out.println(player.getInv());
-                    battleCalculator(enemy,player);
-                    if(player.getHp() <= 0) win = -1;
+                    System.out.println(game.player.getInv());
+                    battleCalculator(enemy,game.player);
+                    if(game.player.getHp() <= 0) win = -1;
                     break;
                 case 3://Ability
                     if(abilityUses > 0){
-                        switch(player.getPlayerClass()){
+                        switch(game.player.getPlayerClass()){
                             case "mage":
                                 enemy.setHp(enemy.getHp()/2.0);
                                 System.out.println("Cut half of the enemy's current HP.");
                                 break;
                             case "archer":
-                                player.setHp((player.getMaxHp()/2.0)+player.getHp());
-                                if(player.getHp()>=player.getMaxHp()) player.setHp(player.getMaxHp());
+                                game.player.setHp((game.player.getMaxHp()/2.0)+game.player.getHp());
+                                if(game.player.getHp()>=game.player.getMaxHp()) game.player.setHp(game.player.getMaxHp());
                                 System.out.println("Healed half of your HP.");
                             default: break;
                         }
                         abilityUses--;
-                        battleCalculator(enemy,player);
-                        if(player.getHp() <= 0) win = -1;
+                        battleCalculator(enemy,game.player);
+                        if(game.player.getHp() <= 0) win = -1;
                     }
                     else{
                         System.out.println("You have no ability uses!");
@@ -61,13 +61,13 @@ public class Battle{
             if(skip) continue;
             if(win == 1){
                 System.out.printf(game.divider + "You defeated %s! They dropped %d coins!%n" + game.divider,enemy,coins);
-                player.setBal(player.getBal()+coins);
+                game.player.setBal(game.player.getBal()+coins);
                 enemy.setHp(enemy.getMaxHp()/2.0);
                 totalWins++;
             }else if(win == -1){
                 System.out.printf(game.divider + "You %s and you dropped %d coins!%n" + game.divider,loseText,coins);
-                player.setBal(player.getBal()-coins);
-                player.setHp(player.getMaxHp()/2.0);
+                game.player.setBal(game.player.getBal()-coins);
+                game.player.setHp(game.player.getMaxHp()/2.0);
             }
         }while(win == 0);
         System.out.print("Press enter to continue.");

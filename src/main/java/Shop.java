@@ -26,13 +26,13 @@ public class Shop {
         this.item = new Item[] {item1};
         this.stock = new int[] {stock1};
     }
-    public void menu(Player customer) {
+    public void menu() {
         // Shop menu option select
         int choice = 0;
         game.clear();
         System.out.println("Welcome to the shop. ");
         while(true) {
-            System.out.println("----------\nYou have "+customer.getBal()+" coins\nPlease select an item to buy.");
+            System.out.println("----------\nYou have "+game.player.getBal()+" coins\nPlease select an item to buy.");
             for(int i=0;i<this.itemCount;i++) System.out.printf("%d. %s x%d, $%d each%n",i+1,item[i].getName(),stock[i],item[i].getValue());
             while(true) {
                 try {
@@ -48,11 +48,11 @@ public class Shop {
             // If statement for chosen option
             if(choice == 0) break;
             else{
-                if(customer.getBal() < item[choice-1].getValue()) System.out.println("You don't have enough money!");
+                if(game.player.getBal() < item[choice-1].getValue()) System.out.println("You don't have enough money!");
                 else if(stock[choice-1] < 1) System.out.println("This item is out of stock!");
                 else {
-                    customer.setBal(customer.getBal() - item[choice-1].getValue());
-                    customer.addItem(item[choice-1]);
+                    game.player.setBal(game.player.getBal() - item[choice-1].getValue());
+                    game.player.addItem(item[choice-1]);
                     stock[choice-1]--;
                     System.out.println("You got a" + ((item[choice-1].startsWithVowel()) ? "n " : " ") + item[choice-1].getName() + "!");
                 }
