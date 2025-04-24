@@ -109,8 +109,8 @@ public class game {
     public static void storyMode() {
         clear();
         System.out.println(divider+"Welcome to the world of Tpircsdiov. The Architect, a mad king, is on a quest to destroy the land of Yrome.\nYou must stop him before he takes over!");
-        String currentLocation = "home", extraDetails="";
-        boolean searchedChest = false;
+        String currentLocation = "your home", extraDetails="";
+        boolean searchedChest = false,x=true;
         reset();
         //Options
         String[] home = {"Open Chest", "Leave Home", "Check Bag"},
@@ -118,16 +118,16 @@ public class game {
         field = {"Attack Fighter", "Go to Castle", "Check Bag"},
         castle = {"Fight Architect", "Fight his Guards", "Go to Shop", "Check Bag"};
         //Looking Around
-        while(Battle.previousWin()==true){
+        do{
             switch(currentLocation) {
-                case "home" -> extraDetails = ". You look around and find a chest";
-                case "village" -> extraDetails = ". You see a field in the distance";
-                case "field" -> extraDetails = ". You see a fighter near a shed, and also see a castle in the other direction";
-                case "castle" -> extraDetails = "After defeating the guard, you see the architect.";
+                case "your home" -> extraDetails = ". You look around and find a chest";
+                case "the village" -> extraDetails = ". You see a field in the distance";
+                case "an open field" -> extraDetails = ". You see a fighter near a shed, and also see a castle in the other direction";
+                case "a castle" -> extraDetails = ". After defeating the guard, you see the architect.";
             }
             System.out.println(divider + "You are at " + currentLocation + extraDetails +".\nOptions: ");
             switch(currentLocation) {
-                case "home":
+                case "your home":
                     switch(optionSelect(home,0)){
                         case 1 -> {
                             if(!searchedChest) {
@@ -136,48 +136,50 @@ public class game {
                                 player.getInv().add(items.get(2));
                             } else System.out.println("The chest is empty.");
                         }
-                        case 2 -> currentLocation = "village";
+                        case 2 -> currentLocation = "the village";
                         case 3 -> player.getBag();
                     }
                     break;
-
-                case "village":
+                case "the village":
                     switch(optionSelect(village,0)) {
                         case 1 -> System.out.println("You look around.");
                         case 2 -> game.threeCents.menu();
                         case 3 -> {
-                            Battle.battler(new SmallEnemy("Small Dude", 5, 2, 1, 1));
-                            currentLocation = "field";
+                            x=Battle.battler(new SmallEnemy("Small Dude", 5, 2, 1, 1));
+                            currentLocation = "an open field";
                         }
                         case 4 -> player.getBag();
                     }
-break;
-
-                case "field":
+                    break;
+                case "an open field":
                     switch(optionSelect(field, 0)) {
-                        case 1 -> Battle.battler(new SmallEnemy("Shed Protecter", 4, 3, 1, 1));
+                        case 1 -> x = Battle.battler(new SmallEnemy("Shed Protecter", 4, 3, 1, 1));
                         case 2 -> {
-                            Battle.battler(new SmallEnemy("Castle Guard", 8, 4, 2, 2));
-                            currentLocation="castle";
+                            x = Battle.battler(new BigEnemy("Castle Guard", 8, 4, 2, 2));
+                            currentLocation="a castle";
                         }
                         case 3 -> player.getBag();
                     }
-break;
-
-                case "castle":
+                    break;
+                case "a castle":
                     switch(optionSelect(castle, 0)) {
-                        case 1 -> Battle.battler(new BossEnemy("Architect", 15, 6, 4, 4));
-                        case 2 -> Battle.battler(new SmallEnemy("Castle Guard", 8, 4, 2, 2));
+                        case 1 -> {
+                            x = Battle.battler(new BossEnemy("Architect", 15, 6, 4, 4));
+                            currentLocation="abyss";
+                        }
+                        case 2 -> x = Battle.battler(new BigEnemy("Castle Guard", 8, 4, 2, 2));
                         case 3 -> game.threeCents.menu();
                         case 4 -> player.getBag();
-                    }
+                    }break;
                 default:
-                    System.out.print("None, since you fall to the abyss.");
+                    clear();
+                    System.out.print(divider+"You succeeded in your goal. Press Enter to Continue.\n"+divider);
                     input.nextLine();
                     return;
             }
-        }clear();
-        System.out.print("You failed your goal in defeating the Architect.\nPress Enter to Continue.");
+        }while(x);
+        clear();
+        System.out.print(divider+"You failed your goal in defeating the Architect.\nPress Enter to Continue.\n"+divider);
         input.nextLine();
     }
     //Endless Mode Code
@@ -188,8 +190,8 @@ break;
         do{
             clear();
             if(battlesSinceShop++%6 == 0) threeCents.menu();
-            if(random < 0.5) Battle.battler(new SmallEnemy("Small Dude", 5, 2, 1, 1));
-            else if(random < 0.85) Battle.battler(new BigEnemy("Guard", 8, 4, 3, 3));
+            if(random < 0.5) Battle.battler(new SmallEnemy("Civilian", 5, 2, 1, 1));
+            else if(random < 0.85) Battle.battler(new BigEnemy("Castle Guard", 8, 4, 3, 3));
             else Battle.battler(new BossEnemy("Architect", 12, 8, 6, 10));
         }while(Battle.previousWin());
         System.out.print(divider + "Final stats\nWins: " + Battle.totalWins + "\nPress enter to return to the main menu.");

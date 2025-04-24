@@ -6,7 +6,7 @@ public class Battle{
     public static int totalWins;
     private static int win = 0;
     // Start a battle
-    public static void battler(SmallEnemy enemy){
+    public static boolean battler(SmallEnemy enemy){
         game.clear();
         System.out.println(game.divider + enemy + " appeared!");
         String loseText = "got defeated by " + enemy;
@@ -52,18 +52,21 @@ public class Battle{
             }
             if(skip) continue;
             if(win == 1){
-                System.out.printf(game.divider + "You defeated %s! They dropped %d coins!%n" + game.divider,enemy,coins);
+                System.out.printf(game.divider + "You defeated %s! They dropped %d coins!%n" + game.divider + "Press enter to continue.",enemy,coins);
                 game.player.setBal(game.player.getBal()+coins);
                 enemy.setHp(enemy.getMaxHp()/2.0);
                 totalWins++;
+                input.nextLine();
+                return true;
             }else if(win == -1){
-                System.out.printf(game.divider + "You %s and you dropped %d coins!%n" + game.divider,loseText,coins);
+                System.out.printf(game.divider + "You %s and you dropped %d coins!%n" + game.divider + "Press enter to continue.",loseText,coins);
                 game.player.setBal(game.player.getBal()-coins);
                 game.player.setHp(game.player.getMaxHp()/2.0);
+                input.nextLine();
+                return false;
             }
         }while(win == 0);
-        System.out.print("Press enter to continue.");
-        input.nextLine();
+        return false;
     }
     //Does Speed calculations for Battle
     public static int battleEnemy(Entity player, Entity enemy){
@@ -92,15 +95,12 @@ public class Battle{
             if(damage <= defender.getDef()) {
                 defender.setHp(defender.getHp() - 1.0);
                 System.out.printf("%s dealt 1 HP to %s!%n",attacker,defender);
-            }
-            else {
+            }else {
                 defender.setHp(defender.getHp() - (damage - defender.getDef()));
                 System.out.printf("%s dealt %.1f HP to %s!%n",attacker,(damage - defender.getDef()),defender);
             }
         }
         if(defender.getHp() <= 0) defender.setHp(0);
     }
-    public static boolean previousWin() {
-        return win == 1;
-    }
+    public static boolean previousWin() {return win == 1;}
 }
