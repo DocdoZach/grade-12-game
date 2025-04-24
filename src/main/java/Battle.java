@@ -12,7 +12,7 @@ public class Battle{
         String loseText = "got defeated by " + enemy;
         String[] battleOptions={"Attack","Bag","Use Ability","Run"};
         boolean skip;
-        int abilityUses = 1, coins = enemy.getCoinValue(), plays;
+        int abilityUses = 1, coins = enemy.getCoinValue(), win=0;
         do{
             System.out.printf(game.divider + "%s has %.1f/%.1f HP remaining.%n%s has %.1f/%.1f HP remaining.%n" +game.divider, game.player, game.player.getHp(), game.player.getMaxHp(), enemy, enemy.getHp(), enemy.getMaxHp());
             skip = false;
@@ -23,7 +23,8 @@ public class Battle{
                     break;
                 case 2://Bag
                     game.clear();
-                    game.player.getBag();
+                    skip=game.player.getBag();
+                    if(skip) break;
                     battleCalculator(enemy,game.player);
                     if(game.player.getHp() <= 0) win = -1;
                     break;
@@ -92,6 +93,7 @@ public class Battle{
     //Calculates Battle Formula
     public static void battleCalculator(Entity attacker, Entity defender){
         double damage = attacker.getAtk();
+        if(attacker.equals(game.player)) damage+=game.player.getItemStat(0);
         if(Math.random() <= attacker.getCritChance()){
             System.out.println("Critical Hit!");
             damage *= 1.5;

@@ -12,7 +12,7 @@ public class game {
 
     public static void main(String[] args) {
         // Instantiate players, items and shop
-        player = new Player("none", 5, 5, 5, 3, 50, new ArrayList<>());
+        player = new Player("none", 5, 2, 5, 3, 50, new ArrayList<>());
         Item hotCocoa = new Item("Hot Cocoa", 25, player.getMaxHp());
         Item apple = new Item("Apple", 3, 3);
         Item bread = new Item("Bread", 5, 5);

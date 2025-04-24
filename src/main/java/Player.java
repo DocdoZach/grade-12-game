@@ -38,18 +38,21 @@ public class Player extends Entity{
     public ArrayList<Item> getInv() {
         return inv;
     }
-    public void getBag() {
+    public boolean getBag() {
         System.out.println("Your Bag:");
-        String[] empty ={"None"};
+        if(this.inv.size()==1){
+            System.out.println("It's Empty.");
+            return true;
+        }
         String[] output=new String[this.inv.size()-1];
-        if(this.inv.size()==1) output=empty;
-        else for(int i=0;i<this.inv.size();i++){
+        for(int i=0;i<this.inv.size();i++){
             if(this.inv.get(i).getValue()<=-1) continue;
             output[i-1]=this.inv.get(i).getName();
         }
         int x=game.optionSelect(output,0);
         game.clear();
         useItem(getItem(x));
+        return false;
     }
     public Item getItem(int index){
         return this.inv.get(index);
