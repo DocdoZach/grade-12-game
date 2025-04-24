@@ -1,6 +1,6 @@
 package main.java;
-
 import java.util.*;
+
 public class game {
     // Instantiate Helpful Variables
     public static Scanner input = new Scanner(System.in);
@@ -24,12 +24,12 @@ public class game {
 
         // Instantiate weapons
         Item stick = new Item("Stick", -1, 1);
-        Item powerStick = new Item("Power Stick", -2, 10);
         Item sword = new Item("Sword", -1, 2);
-        Item megaSword = new Item("Mega Sword", -2, 4);
         Item staff = new Item("Staff", -1, 2);
-        Item ultraStaff = new Item("Ultra Staff", -2, 4);
         Item bow = new Item("Bow", -1, 2);
+        Item powerStick = new Item("Power Stick", -2, 10);
+        Item megaSword = new Item("Mega Sword", -2, 4);
+        Item ultraStaff = new Item("Ultra Staff", -2, 4);
         Item superBow = new Item("Super Bow", -2, 4);
 
         // Name select
@@ -49,12 +49,12 @@ public class game {
         player.setPlayerClass();
         System.out.println("You set your class to "+player.getPlayerClass()+".");
         mainMenu();
-        // Debug menu option select
+        // Debug Menu option select
         String[] text={"Test Battle","Test Main Menu","Test Shop","Change Weapon","Upgrade Weapon","Quit"};
         while(true) {
             clear();
-            System.out.println(divider + "WIP Game Name Debug Menu");
-            // Switch statement for Chosen Option
+            System.out.println(divider + "Tpircsdiov Debug Menu");
+            // Switch Statement for Chosen Option
             switch (optionSelect(text,0)) {
                 case 1: Battle.battler(new SmallEnemy("Small Dude", 5, 2, 1, 1)); break;
                 case 2: mainMenu(); break;
@@ -81,7 +81,7 @@ public class game {
                     input.nextLine();
                     break;
                 case 5:
-                    System.out.print("Your weapon "+((player.getItemValue(0)!=-2) ? "was" : "can't be")+" upgraded.\nPress enter to return to the main menu.");
+                    System.out.print("Your weapon "+((player.getItem(0).getValue()!=-2) ? "was" : "can't be")+" upgraded.\nPress enter to return to the main menu.");
                     player.setItem(player.getItem(0).getName().equals("Stick")?powerStick:player.getItem(0).getName().equals("Bow")?superBow:player.getItem(0).getName().equals("Staff")?ultraStaff:player.getItem(0).getName().equals("Sword")?megaSword:player.getItem(0),0);
                     input.nextLine();
                     break;
@@ -111,10 +111,11 @@ public class game {
         System.out.println(divider+"Welcome to the world of Tpircsdiov. The Architect, a mad king, is on a quest to destroy the land of Yrome.\nYou must stop him before he takes over!");
         String currentLocation = "home";
         boolean searchedChest = false;
+        reset();
         //Options
-        String[] home = {"Open Chest", "Leave Home", "Check Bag"};
-        String[] village = {"Look Around", "Leave Village", "Check Bag"};
-        String[] field = {"Return to Village", "IDK", "Check Bag"};
+        String[] home = {"Open Chest", "Leave Home", "Check Bag"},
+        village = {"Look Around", "Leave Village", "Check Bag"},
+        field = {"Return to Village", "IDK", "Check Bag"};
         //Looking Around
         while(true){
             System.out.println(divider + "You are at " + currentLocation + ".\nOptions: ");
@@ -170,12 +171,9 @@ public class game {
     }
     //Endless Mode Code
     public static void endlessMode(){
-        int battlesSinceShop = 0;
         double random = Math.random();
-        Battle.totalWins = 0;
-        player.setBal(50);
-        player.setHp(player.getMaxHp());
-        threeCents.resetStock();
+        int battlesSinceShop = 0;
+        reset();
         do{
             clear();
             if(battlesSinceShop++%6 == 0) threeCents.menu();
@@ -209,5 +207,12 @@ public class game {
             } catch(Exception e) {System.out.print("Invalid input. ");}
         }clear();
         return choice;
+    //Reset Player and Shop
+    }public static void reset(){
+        Battle.totalWins = 0;
+        player.setBal(50);
+        player.setHp(player.getMaxHp());
+        player.resetBag();
+        threeCents.resetStock();
     }
 }

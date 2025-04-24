@@ -1,6 +1,6 @@
 package main.java;
-
 import java.util.Scanner;
+
 public class Battle{
     public static Scanner input = new Scanner(System.in);
     public static int totalWins;
@@ -12,7 +12,7 @@ public class Battle{
         String loseText = "got defeated by " + enemy;
         String[] battleOptions={"Attack","Bag","Use Ability","Run"};
         boolean skip;
-        int abilityUses = 1, coins = enemy.getCoinValue(), win=0;
+        int abilityUses = 1, coins = enemy.getCoinValue(), win = 0;
         do{
             System.out.printf(game.divider + "%s has %.1f/%.1f HP remaining.%n%s has %.1f/%.1f HP remaining.%n" +game.divider, game.player, game.player.getHp(), game.player.getMaxHp(), enemy, enemy.getHp(), enemy.getMaxHp());
             skip = false;
@@ -83,20 +83,19 @@ public class Battle{
             if(player.getHp() <= 0) return -1;
             battleCalculator(player, enemy);
             if(enemy.getHp() <= 0) return 1;
-        }
-        return 0;
+        }return 0;
     }
     //Calculates Battle Formula
     public static void battleCalculator(Entity attacker, Entity defender){
         double damage = attacker.getAtk();
-        if(attacker.equals(game.player)) damage+=game.player.getItemStat(0);
-        if(Math.random() <= attacker.getCritChance()){
+        if(attacker.equals(game.player)) damage+=game.player.getItem(0).getStat();
+        if(Math.random() <= attacker.getCritChance()) {
             System.out.println("Critical Hit!");
             damage *= 1.5;
         }
         if(Math.random() <= attacker.getDodgeChance()) System.out.println("Attack dodged!");
         else {
-            if(damage <= defender.getDef()){
+            if(damage <= defender.getDef()) {
                 defender.setHp(defender.getHp() - 1.0);
                 System.out.printf("%s dealt 1 HP to %s!%n",attacker,defender);
             }

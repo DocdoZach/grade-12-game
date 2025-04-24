@@ -15,49 +15,19 @@ public abstract class Entity{
         this.def = def;
         this.spd = spd;
     }
-    public String toString() {
-        return name;
-    }
-    public String getName() {
-        return name;
-    }
-    public double getHp() {
-        return hp;
-    }
-    public double getMaxHp() {
-        return maxHp;
-    }
-    public int getAtk() {
-        return atk;
-    }
-    public int getDef() {
-        return def;
-    }
-    public int getSpd() {
-        return spd;
-    }
-    public double getCritChance(){
-        return 0;
-    }
-    public double getDodgeChance(){
-        return 0;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public void setHp(double hp) {
-        this.hp = hp;
-    }
-    public void setMaxHp(double maxHp) {
-        this.maxHp = maxHp;
-    }
-    public void setAtk(int atk) {
-        this.atk = atk;
-    }
-    public void setDef(int def) {
-        this.def = def;
-    }
-    public void setSpd(int spd) {
-        this.spd = spd;
-    }
+    public String toString() {return name;}
+    public String getName() {return name;}
+    public double getHp() {return hp;}
+    public double getMaxHp() {return maxHp;}
+    public int getAtk() {return atk;}
+    public int getDef() {return def;}
+    public int getSpd() {return spd;}
+    public double getCritChance(){return 0;}
+    public double getDodgeChance(){return 0;}
+    public void setName(String name) {this.name = name;}
+    public void setHp(double hp) {this.hp = hp;}
+    public void setMaxHp(double maxHp) {this.maxHp = maxHp;}
+    public void setAtk(int atk) {this.atk = atk;}
+    public void setDef(int def) {this.def = def;}
+    public void setSpd(int spd) {this.spd = spd;}
 }

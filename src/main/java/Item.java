@@ -10,24 +10,13 @@ public class Item {
         this.value = value;
         this.stat = stat;
     }
-    public String getName() {
-        return name;
-    }
-    public int getValue() {
-        return value;
-    }
-    public double getStat() {
-        return stat;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public void setValue(int value) {
-        this.value = value;
-    }
-    public void setStat(double stat) {
-        this.stat = stat;
-    }
+    public String getName() {return name;}
+    public int getValue() {return value;}
+    public double getStat() {return stat;}
+    public void setName(String name) {this.name = name;}
+    public void setValue(int value) {this.value = value;}
+    public void setStat(double stat) {this.stat = stat;}
+    //Prints Value of Item
     public String toString() {
         return name + " has a value of " + value;
     }

@@ -9,32 +9,29 @@ public class Shop {
 
     public static Scanner input = new Scanner(System.in);
     Shop(Item item1, Item item2, Item item3, Item item4, int stock1, int stock2, int stock3, int stock4) {
-        this.itemCount = 4;
         this.item = new Item[] {item1, item2, item3, item4};
         this.stock = new int[] {stock1, stock2, stock3, stock4};
         this.oldStock = new int[] {stock1, stock2, stock3, stock4};
     }
     Shop(Item item1, Item item2, Item item3, int stock1, int stock2, int stock3) {
-        this.itemCount = 3;
         this.item = new Item[] {item1, item2, item3};
         this.stock = new int[] {stock1, stock2, stock3};
         this.oldStock = new int[] {stock1, stock2, stock3};
     }
     Shop(Item item1, Item item2, int stock1, int stock2) {
-        this.itemCount = 2;
         this.item = new Item[] {item1, item2};
         this.stock = new int[] {stock1, stock2};
         this.oldStock = new int[] {stock1, stock2};
     }
     Shop(Item item1, int stock1) {
-        this.itemCount = 1;
         this.item = new Item[] {item1};
         this.stock = new int[] {stock1};
         this.oldStock = new int[] {stock1};
     }
     public void menu() {
         // Shop menu option select
-        int choice = 0;
+        int choice;
+        this.itemCount = this.item.length;
         String[] form=new String[this.itemCount];
         game.clear();
         System.out.println("Welcome to the shop. ");
@@ -56,19 +53,11 @@ public class Shop {
             }
         }
     }
-    public Item getItem(int index) {
-        return item[index];
-    }
-    public void setItem(Item item, int index) {
-        this.item[index] = item;
-    }
-    public int getStock(int index) {
-        return stock[index];
-    }
-    public void setStock(int stock, int index) {
-        this.stock[index] = stock;
-    }
-    public void resetStock(){
-        for(int i=0;i<stock.length;i++) stock[i]=oldStock[i];
+    public Item getItem(int index) {return item[index];}
+    public void setItem(Item item, int index) {this.item[index] = item;}
+    public int getStock(int index) {return stock[index];}
+    public void setStock(int stock, int index) {this.stock[index] = stock;}
+    public void resetStock() {
+        System.arraycopy(oldStock, 0, stock, 0, stock.length);
     }
 }
