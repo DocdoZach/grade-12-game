@@ -42,7 +42,6 @@ public class Shop {
             System.out.println("----------\nYou have "+game.player.getBal()+" coins\nPlease select an item to buy.");
             for(int i=0;i<this.itemCount;i++) form[i]=String.format("%s x%d, $%d each",item[i].getName(),stock[i],item[i].getValue());
             choice=game.optionSelect(form, 2);
-            game.clear();
             // If statement for chosen option
             if(choice == 0) break;
             else{

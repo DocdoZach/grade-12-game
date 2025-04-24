@@ -12,7 +12,7 @@ public class game {
 
     public static void main(String[] args) {
         // Instantiate players, items and shop
-        player = new Player("none", 5, 2, 5, 3, 50, new ArrayList<>());
+        player = new Player("none", 5, 3, 5, 3, 50, new ArrayList<>());
         Item hotCocoa = new Item("Hot Cocoa", 25, player.getMaxHp());
         Item apple = new Item("Apple", 3, 3);
         Item bread = new Item("Bread", 5, 5);
@@ -122,7 +122,6 @@ public class game {
                 case "home":
                     switch(optionSelect(home,0)){
                         case 1:
-                            game.clear();
                             if(!searchedChest) {
                                 System.out.println("You took a slice of bread.");
                                 searchedChest = true;
@@ -130,7 +129,6 @@ public class game {
                             } else System.out.println("The chest is empty.");
                             break;
                         case 2:
-                        game.clear();
                             currentLocation = "village";
                             break;
                         case 3:
@@ -141,7 +139,6 @@ public class game {
                 case "village":
                     switch(optionSelect(village,0)) {
                         case 1:
-                            game.clear();
                             System.out.println("You look around.");
                             break;
                         case 2:
@@ -149,27 +146,22 @@ public class game {
                             currentLocation = "field";
                             break;
                         case 3:
-                            game.clear();
                             player.getBag();
                             break;
                     } break;
                 case "field":
                     switch(optionSelect(field, 0)) {
                         case 1:
-                            game.clear();
                             Battle.battler(new SmallEnemy("Small Dude", 5, 2, 1, 1));
                             break;
                         case 2:
-                            game.clear();
                             System.out.println("OK.");
                             break;
                         case 3:
-                            game.clear();
                             player.getBag();
                             break;
                     }
                 default:
-                    game.clear();
                     System.out.print("None, since you fall to the abyss.");
                     input.nextLine();
                     return;
@@ -215,7 +207,7 @@ public class game {
                 }
                 break;
             } catch(Exception e) {System.out.print("Invalid input. ");}
-        }
+        }clear();
         return choice;
     }
 }
