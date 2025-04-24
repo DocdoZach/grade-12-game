@@ -23,7 +23,8 @@ public class Battle{
                     break;
                 case 2://Bag
                     game.clear();
-                    System.out.println(game.player.getInv());
+                    System.out.println("Your Bag:");
+                    game.player.useItem(game.player.getItem(game.optionSelect(game.player.getInventory(), 0)));
                     battleCalculator(enemy,game.player);
                     if(game.player.getHp() <= 0) win = -1;
                     break;

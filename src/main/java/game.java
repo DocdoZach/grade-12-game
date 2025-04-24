@@ -39,10 +39,10 @@ public class game {
             System.out.print("Choose your class: ");
             x=input.nextLine();
             player.setItem(x.equals("fred")?stick:x.equals("archer")?bow:x.equals("mage")?staff:x.equals("warrior")?sword:player.getItem(0),0);
-            if(!player.getInv(0).equals("Fists")) break;
+            if(!player.getItemName(0).equals("Fists")) break;
             clear();
             System.out.println("Not an option.");
-        }while(player.getInv(0).equals("Fists"));
+        }while(player.getItemName(0).equals("Fists"));
         player.setPlayerClass();
         System.out.println("You set your class to "+player.getPlayerClass()+".");
         mainMenu();
@@ -57,7 +57,7 @@ public class game {
                 case 2: mainMenu(); break;
                 case 3: threeCents.menu(); break;
                 case 4:
-                    y=player.getInv(0);
+                    y=player.getItemName(0);
                     do{
                         System.out.print("Choose your class: ");
                         x=input.nextLine();
@@ -68,18 +68,18 @@ public class game {
                             case "fred": player.setItem(stick,0); break;
                             default: clear(); System.out.println("Not an option.");
                         }
-                        if(player.getInv(0).equals(player.getInv(0))){
+                        if(player.getItemName(0).equals(player.getItemName(0))){
                             clear();
                             System.out.println("Class already chosen.");
                         }
-                    }while(player.getInv(0).equals(y));
+                    }while(player.getItemName(0).equals(y));
                     player.setPlayerClass();
                     System.out.println("You changed your class to "+player.getPlayerClass()+".\nPress enter to return to the main menu.");
                     input.nextLine();
                     break;
                 case 5:
-                    System.out.print("Your weapon "+((player.getInvValue(0)!=-2) ? "was" : "can't be")+" upgraded.\nPress enter to return to the main menu.");
-                    player.setItem(player.getInv(0).equals("Stick")?powerStick:player.getInv(0).equals("Bow")?superBow:player.getInv(0).equals("Staff")?ultraStaff:player.getInv(0).equals("Sword")?megaSword:player.getItem(0),0);
+                    System.out.print("Your weapon "+((player.getItemValue(0)!=-2) ? "was" : "can't be")+" upgraded.\nPress enter to return to the main menu.");
+                    player.setItem(player.getItemName(0).equals("Stick")?powerStick:player.getItemName(0).equals("Bow")?superBow:player.getItemName(0).equals("Staff")?ultraStaff:player.getItemName(0).equals("Sword")?megaSword:player.getItem(0),0);
                     input.nextLine();
                     break;
                 case 6: System.exit(0);
@@ -155,6 +155,7 @@ public class game {
         Battle.totalWins = 0;
         player.setBal(50);
         player.setHp(player.getMaxHp());
+        threeCents.resetStock();
         do{
             clear();
             if(battlesSinceShop++%6 == 0) threeCents.menu();

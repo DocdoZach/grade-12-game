@@ -5,26 +5,32 @@ public class Shop {
     private int itemCount;
     private Item[] item;
     private int[] stock;
+    private int[] oldStock;
+
     public static Scanner input = new Scanner(System.in);
     Shop(Item item1, Item item2, Item item3, Item item4, int stock1, int stock2, int stock3, int stock4) {
         this.itemCount = 4;
         this.item = new Item[] {item1, item2, item3, item4};
         this.stock = new int[] {stock1, stock2, stock3, stock4};
+        this.oldStock = new int[] {stock1, stock2, stock3, stock4};
     }
     Shop(Item item1, Item item2, Item item3, int stock1, int stock2, int stock3) {
         this.itemCount = 3;
         this.item = new Item[] {item1, item2, item3};
         this.stock = new int[] {stock1, stock2, stock3};
+        this.oldStock = new int[] {stock1, stock2, stock3};
     }
     Shop(Item item1, Item item2, int stock1, int stock2) {
         this.itemCount = 2;
         this.item = new Item[] {item1, item2};
         this.stock = new int[] {stock1, stock2};
+        this.oldStock = new int[] {stock1, stock2};
     }
     Shop(Item item1, int stock1) {
         this.itemCount = 1;
         this.item = new Item[] {item1};
         this.stock = new int[] {stock1};
+        this.oldStock = new int[] {stock1};
     }
     public void menu() {
         // Shop menu option select
@@ -62,5 +68,8 @@ public class Shop {
     }
     public void setStock(int stock, int index) {
         this.stock[index] = stock;
+    }
+    public void resetStock(){
+        for(int i=0;i<stock.length;i++) stock[i]=oldStock[i];
     }
 }

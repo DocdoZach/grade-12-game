@@ -35,29 +35,43 @@ public class Player extends Entity{
     public void setBal(int bal) {
         this.bal = bal;
     }
-    public String getInv() {
-        String output = "";
-        if(this.inv.isEmpty()) return "Your bag is empty.";
-        System.out.print("Your bag: ");
-        for (Item item : this.inv) output += item.getName() + ", ";
+    public String[] getInventory() {
+        String[] empty ={"None"};
+        if(this.inv.size()==1) return empty;
+        String[] output=new String[this.inv.size()-1];
+        for(int i=0;i<this.inv.size();i++){
+            if(this.inv.get(i).getValue()<=-1) continue;
+            output[i-1]=this.inv.get(i).getName();
+        }
         return output;
     }
-    public String getInv(int x){
-        if(this.inv.isEmpty()) return "empty";
-        return inv.get(x).getName();
+    public Item getItem(int index){
+        return this.inv.get(index);
     }
-    public int getInvValue(int x){
+    public String getItemName(int index){
+        if(this.inv.isEmpty()) return "empty";
+        return this.inv.get(index).getName();
+    }
+    public int getItemValue(int index){
         if(this.inv.isEmpty()) return 0;
-        return inv.get(x).getValue();
+        return this.inv.get(index).getValue();
+    }
+    public double getItemStat(int index){
+        if(this.inv.isEmpty()) return 0;
+        return this.inv.get(index).getStat();
+    }
+    public void useItem(Item item){
+        if(item==null)return;
+        System.out.println("Healed "+item.getStat() + "HP!");
+        setHp(getHp()+item.getStat());
+        if(getHp()>=getMaxHp()) setHp(getMaxHp());
+        removeItem(item);
     }
     public void addItem(Item item) {
         this.inv.add(item);
     }
     public void removeItem(Item item) {
         this.inv.remove(item);
-    }
-    public Item getItem(int index){
-        return this.inv.get(index);
     }
     public void setItem(Item item, int index){
         this.inv.set(index,item);
@@ -68,7 +82,7 @@ public class Player extends Entity{
     public void setPlayerClass(){
         String weapon;
         if(this.inv.isEmpty()) weapon = "none";
-        else weapon = getInv(0);
+        else weapon = getItemName(0);
         if(weapon.contains("Sword")) this.playerClass="warrior";
         else if(weapon.contains("Staff")) this.playerClass="mage";
         else if(weapon.contains("Bow")) this.playerClass="archer";
