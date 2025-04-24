@@ -18,14 +18,17 @@ public class Battle{
             skip = false;
             switch(game.optionSelect(battleOptions,0)) {
                 case 1://Battle
+                    game.clear();
                     win = battleEnemy(game.player,enemy);
                     break;
                 case 2://Bag
+                    game.clear();
                     System.out.println(game.player.getInv());
                     battleCalculator(enemy,game.player);
                     if(game.player.getHp() <= 0) win = -1;
                     break;
                 case 3://Ability
+                    game.clear();
                     if(abilityUses > 0){
                         switch(game.player.getPlayerClass()){
                             case "mage":
@@ -48,6 +51,7 @@ public class Battle{
                     }
                     break;
                 case 4://Run
+                    game.clear();
                     loseText = "ran";
                     win = -1;
                     break;

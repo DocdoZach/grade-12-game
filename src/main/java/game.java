@@ -45,6 +45,7 @@ public class game {
         }while(player.getInv(0).equals("Fists"));
         player.setPlayerClass();
         System.out.println("You set your class to "+player.getPlayerClass()+".");
+        mainMenu();
         // Debug menu option select
         String[] text={"Test Battle","Test Main Menu","Test Shop","Change Weapon","Upgrade Weapon","Quit"};
         while(true) {
@@ -115,28 +116,33 @@ public class game {
             switch(currentLocation) {
                 case "home":
                     switch(optionSelect(home,0)){
+                        
                         case 1:
+                            game.clear();
                             if(!searchedChest) {
                                 System.out.println("You took a slice of bread.");
                                 searchedChest = true;
                             }else System.out.println("The chest is empty.");
                             break;
                         case 2:
+                        game.clear();
                             currentLocation = "village";
                             break;
                     }
                     break;
                 case "village":
-                switch(optionSelect(village,0)){
-                    case 1:
-                        System.out.println("You look around.");
-                        break;
-                    case 2:
-                        currentLocation = "none";
-                        break;
-                }
+                    switch(optionSelect(village,0)){
+                        case 1:
+                            game.clear();
+                            System.out.println("You look around.");
+                            break;
+                        case 2:
+                            currentLocation = "nowhere";
+                            break;
+                    }break;
                 default:
-                    System.out.print("You are nowhere and fall to the abyss.");
+                    game.clear();
+                    System.out.print("None, since you fall to the abyss.");
                     input.nextLine();
                     return;
             }
