@@ -17,16 +17,14 @@ public class Battle{
             System.out.printf(game.divider + "%s has %.1f/%.1f HP remaining.%n%s has %.1f/%.1f HP remaining.%n" +game.divider, game.player, game.player.getHp(), game.player.getMaxHp(), enemy, enemy.getHp(), enemy.getMaxHp());
             skip = false;
             switch(game.optionSelect(battleOptions,0)) {
-                case 1://Battle
+                case 1 -> //Battle
                     win = battleEnemy(game.player,enemy);
-                    break;
-                case 2://Bag
+                case 2 -> { //Bag
                     skip=game.player.getBag();
                     if(skip) break;
                     battleCalculator(enemy,game.player);
                     if(game.player.getHp() <= 0) win = -1;
-                    break;
-                case 3://Ability
+                }case 3 -> { //Ability
                     if(abilityUses > 0){
                         switch(game.player.getPlayerClass()){
                             case "mage":
@@ -47,14 +45,10 @@ public class Battle{
                         System.out.println("You have no ability uses!");
                         skip = true;
                     }
-                    break;
-                case 4://Run
+                }case 4 -> { //Run
                     loseText = "ran";
                     win = -1;
-                    break;
-                default:
-                    skip = true;
-                    break; 
+                }default -> skip = true; 
             }
             if(skip) continue;
             if(win == 1){
