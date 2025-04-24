@@ -35,15 +35,18 @@ public class Player extends Entity{
     public void setBal(int bal) {
         this.bal = bal;
     }
-    public String[] getInventory() {
+    public void getInventory() {
+        System.out.println("Your Bag:");
         String[] empty ={"None"};
-        if(this.inv.size()==1) return empty;
         String[] output=new String[this.inv.size()-1];
-        for(int i=0;i<this.inv.size();i++){
+        if(this.inv.size()==1) output=empty;
+        else for(int i=0;i<this.inv.size();i++){
             if(this.inv.get(i).getValue()<=-1) continue;
             output[i-1]=this.inv.get(i).getName();
         }
-        return output;
+        int x=game.optionSelect(output,0);
+        game.clear();
+        useItem(getItem(x));
     }
     public Item getItem(int index){
         return this.inv.get(index);
@@ -62,7 +65,8 @@ public class Player extends Entity{
     }
     public void useItem(Item item){
         if(item==null)return;
-        System.out.println("Healed "+item.getStat() + "HP!");
+        if(item.getName().equals("Hot Cocoa")) item.setStat(getMaxHp());
+        System.out.println("Healed "+item.getStat() + " HP!");
         setHp(getHp()+item.getStat());
         if(getHp()>=getMaxHp()) setHp(getMaxHp());
         removeItem(item);
