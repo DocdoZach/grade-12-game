@@ -112,7 +112,9 @@ public class game {
         String currentLocation = "home";
         boolean searchedChest = false;
         //Options
-        String[] home={"Open Chest", "Leave Home", "Check Bag"},village={"Look Around", "Leave Village", "Check Bag"};
+        String[] home = {"Open Chest", "Leave Home", "Check Bag"};
+        String[] village = {"Look Around", "Leave Village", "Check Bag"};
+        String[] field = {"Return to Village", "IDK", "Check Bag"};
         //Looking Around
         while(true){
             System.out.println(divider + "You are at " + currentLocation + ".\nOptions: ");
@@ -125,7 +127,7 @@ public class game {
                                 System.out.println("You took a slice of bread.");
                                 searchedChest = true;
                                 player.getInv().add(items.get(2));
-                            }else System.out.println("The chest is empty.");
+                            } else System.out.println("The chest is empty.");
                             break;
                         case 2:
                         game.clear();
@@ -137,15 +139,35 @@ public class game {
                     }
                     break;
                 case "village":
-                    switch(optionSelect(village,0)){
+                    switch(optionSelect(village,0)) {
                         case 1:
                             game.clear();
                             System.out.println("You look around.");
                             break;
                         case 2:
-                            currentLocation = "nowhere";
+                            Battle.battler(new SmallEnemy("Small Dude", 5, 2, 1, 1));
+                            currentLocation = "field";
                             break;
-                    }break;
+                        case 3:
+                            game.clear();
+                            player.getBag();
+                            break;
+                    } break;
+                case "field":
+                    switch(optionSelect(field, 0)) {
+                        case 1:
+                            game.clear();
+                            Battle.battler(new SmallEnemy("Small Dude", 5, 2, 1, 1));
+                            break;
+                        case 2:
+                            game.clear();
+                            System.out.println("OK.");
+                            break;
+                        case 3:
+                            game.clear();
+                            player.getBag();
+                            break;
+                    }
                 default:
                     game.clear();
                     System.out.print("None, since you fall to the abyss.");
