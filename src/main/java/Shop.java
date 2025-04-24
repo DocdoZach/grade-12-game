@@ -29,21 +29,13 @@ public class Shop {
     public void menu() {
         // Shop menu option select
         int choice = 0;
+        String[] form=new String[this.itemCount];
         game.clear();
         System.out.println("Welcome to the shop. ");
         while(true) {
             System.out.println("----------\nYou have "+game.player.getBal()+" coins\nPlease select an item to buy.");
-            for(int i=0;i<this.itemCount;i++) System.out.printf("%d. %s x%d, $%d each%n",i+1,item[i].getName(),stock[i],item[i].getValue());
-            while(true) {
-                try {
-                    System.out.print("Your choice (1" + (itemCount == 1 ? "" : ("-"+itemCount)) + ", or 0 to exit): ");
-                    choice = Integer.parseInt(input.nextLine());
-                    if(choice < 0 || choice > itemCount) System.out.print("Invalid choice. ");
-                    else break;
-                } catch(Exception e) {
-                    System.out.print("Invalid choice. ");
-                }
-            }
+            for(int i=0;i<this.itemCount;i++) form[i]=String.format("%s x%d, $%d each",item[i].getName(),stock[i],item[i].getValue());
+            choice=game.optionSelect(form, 2);
             game.clear();
             // If statement for chosen option
             if(choice == 0) break;
@@ -59,52 +51,16 @@ public class Shop {
             }
         }
     }
-    public Item getItem1() {
-        return item[0];
+    public Item getItem(int index) {
+        return item[index];
     }
-    public Item getItem2() {
-        return item[1];
+    public void setItem(Item item, int index) {
+        this.item[index] = item;
     }
-    public Item getItem3() {
-        return item[2];
+    public int getStock(int index) {
+        return stock[index];
     }
-    public Item getItem4() {
-        return item[3];
-    }
-    public void setItem1(Item item1) {
-        this.item[0] = item1;
-    }
-    public void setItem2(Item item2) {
-        this.item[1] = item2;
-    }
-    public void setItem3(Item item3) {
-        this.item[2] = item3;
-    }
-    public void setItem4(Item item4) {
-        this.item[3] = item4;
-    }
-    public int getStock1() {
-        return stock[0];
-    }
-    public int getStock2() {
-        return stock[1];
-    }
-    public int getStock3() {
-        return stock[2];
-    }
-    public int getStock4() {
-        return stock[3];
-    }
-    public void setStock1(int stock1) {
-        this.stock[0] = stock1;
-    }
-    public void setStock2(int stock2) {
-        this.stock[1] = stock2;
-    }
-    public void setStock3(int stock3) {
-        this.stock[2] = stock3;
-    }
-    public void setStock4(int stock4) {
-        this.stock[3] = stock4;
+    public void setStock(int stock, int index) {
+        this.stock[index] = stock;
     }
 }

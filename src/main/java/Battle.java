@@ -10,16 +10,13 @@ public class Battle{
         game.clear();
         System.out.println(game.divider + enemy + " appeared!");
         String loseText = "got defeated by " + enemy;
+        String[] battleOptions={"Attack","Bag","Use Ability","Run"};
         boolean skip;
         int abilityUses = 1, coins = enemy.getCoinValue(), plays;
         do{
-            System.out.printf(game.divider + "%s has %.1f/%.1f HP remaining.%n%s has %.1f/%.1f HP remaining.%n" + game.divider + "Options:%n1. Attack%n2. Bag%n3. Use Ability%n4. Run%n"+game.divider, game.player, game.player.getHp(), game.player.getMaxHp(), enemy, enemy.getHp(), enemy.getMaxHp());
+            System.out.printf(game.divider + "%s has %.1f/%.1f HP remaining.%n%s has %.1f/%.1f HP remaining.%n" +game.divider, game.player, game.player.getHp(), game.player.getMaxHp(), enemy, enemy.getHp(), enemy.getMaxHp());
             skip = false;
-            do{
-                try{plays = Integer.parseInt(input.nextLine());game.clear();break;}
-                catch(Exception e){plays = 0;System.out.print("Invalid input. ");}
-            }while(true);
-            switch(plays) {
+            switch(game.optionSelect(battleOptions,0)) {
                 case 1://Battle
                     win = battleEnemy(game.player,enemy);
                     break;

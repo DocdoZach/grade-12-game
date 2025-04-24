@@ -51,7 +51,7 @@ public class game {
             clear();
             System.out.println(divider + "WIP Game Name Debug Menu");
             // Switch statement for Chosen Option
-            switch (optionSelect(text)) {
+            switch (optionSelect(text,0)) {
                 case 1: Battle.battler(new SmallEnemy("Small Dude", 5, 2, 1, 1)); break;
                 case 2: mainMenu(); break;
                 case 3: threeCents.menu(); break;
@@ -88,19 +88,18 @@ public class game {
     }
     //Main Menu
     public static void mainMenu(){
-        int x=0;
         String[] option={"Story Mode","Endless Mode","Quit"};
         do{
             clear();
             System.out.println(divider + "Welcome to (WIP Name)");
-            switch(optionSelect(option)){
+            switch(optionSelect(option,1)){
                 case 1: storyMode();
                 case 2: endlessMode(); break;
                 case 3: System.exit(0);
-                case 0: x=1;
+                case 0: return;
                 default: break;
             }
-        }while(x==0);
+        }while(true);
     }
     //Story Mode
     public static void storyMode() {
@@ -115,7 +114,7 @@ public class game {
             System.out.println(divider + "You are at " + currentLocation + ".\nOptions: ");
             switch(currentLocation) {
                 case "home":
-                    switch(optionSelect(home)) {
+                    switch(optionSelect(home,0)){
                         case 1:
                             if(!searchedChest) {
                                 System.out.println("You took a slice of bread.");
@@ -128,7 +127,7 @@ public class game {
                     }
                     break;
                 case "village":
-                switch(optionSelect(village)) {
+                switch(optionSelect(village,0)){
                     case 1:
                         System.out.println("You look around.");
                         break;
@@ -139,8 +138,7 @@ public class game {
                 default:
                     System.out.print("You are nowhere and fall to the abyss.");
                     input.nextLine();
-                    System.exit(0);
-                    break;
+                    return;
             }
         }
     }
@@ -167,14 +165,15 @@ public class game {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     //Game Options Screen
-    }public static int optionSelect(String[] options){
+    }public static int optionSelect(String[] options, int hidden){
         int choice = 0;
         for(int i=0;i<options.length;i++) System.out.println((i+1)+". "+options[i]);
         System.out.print(divider);
         while(true) {
-            System.out.print("Select an option (1" + (options.length == 1 ? "" : ("-"+options.length)) + "): ");
+            System.out.print("Select an option (1" + (options.length == 1 ? "" : ("-"+options.length)) + (hidden==2?", or 0 to exit":"")+"): ");
             try {
                 choice = Integer.parseInt(input.nextLine());
+                if((hidden>=1)&&choice==0) break;
                 if (choice < 1 || choice > options.length) {
                     System.out.print("Invalid input. ");
                     continue;
