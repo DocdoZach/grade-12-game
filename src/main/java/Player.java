@@ -35,7 +35,10 @@ public class Player extends Entity{
     public void setBal(int bal) {
         this.bal = bal;
     }
-    public void getInventory() {
+    public ArrayList<Item> getInv() {
+        return inv;
+    }
+    public void getBag() {
         System.out.println("Your Bag:");
         String[] empty ={"None"};
         String[] output=new String[this.inv.size()-1];
@@ -50,10 +53,6 @@ public class Player extends Entity{
     }
     public Item getItem(int index){
         return this.inv.get(index);
-    }
-    public String getItemName(int index){
-        if(this.inv.isEmpty()) return "empty";
-        return this.inv.get(index).getName();
     }
     public int getItemValue(int index){
         if(this.inv.isEmpty()) return 0;
@@ -86,7 +85,7 @@ public class Player extends Entity{
     public void setPlayerClass(){
         String weapon;
         if(this.inv.isEmpty()) weapon = "none";
-        else weapon = getItemName(0);
+        else weapon = getItem(0).getName();
         if(weapon.contains("Sword")) this.playerClass="warrior";
         else if(weapon.contains("Staff")) this.playerClass="mage";
         else if(weapon.contains("Bow")) this.playerClass="archer";

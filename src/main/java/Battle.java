@@ -23,7 +23,7 @@ public class Battle{
                     break;
                 case 2://Bag
                     game.clear();
-                    game.player.getInventory();
+                    game.player.getBag();
                     battleCalculator(enemy,game.player);
                     if(game.player.getHp() <= 0) win = -1;
                     break;

@@ -8,16 +8,19 @@ public class game {
     // Instantiate player and shop
     public static Player player;
     public static Shop threeCents;
+    public static ArrayList<Item> items;
 
     public static void main(String[] args) {
         // Instantiate players, items and shop
-        player=new Player("none", 5, 5, 5, 3, 50, new ArrayList<>());
+        player = new Player("none", 5, 5, 5, 3, 50, new ArrayList<>());
         Item hotCocoa = new Item("Hot Cocoa", 25, player.getMaxHp());
         Item apple = new Item("Apple", 3, 3);
         Item bread = new Item("Bread", 5, 5);
         Item salad = new Item("Salad", 7, 8);
         Item applePie = new Item("Apple Pie", 9, 10);
-        threeCents=new Shop(hotCocoa, applePie, bread, apple, 1, 3, 5, 7);
+        items = new ArrayList<>();
+        items.add(hotCocoa); items.add(apple); items.add(bread); items.add(salad); items.add(applePie);
+        threeCents = new Shop(hotCocoa, applePie, bread, apple, 1, 3, 5, 7);
 
         // Instantiate weapons
         Item stick = new Item("Stick", -1, 1);
@@ -39,10 +42,10 @@ public class game {
             System.out.print("Choose your class: ");
             x=input.nextLine();
             player.setItem(x.equals("fred")?stick:x.equals("archer")?bow:x.equals("mage")?staff:x.equals("warrior")?sword:player.getItem(0),0);
-            if(!player.getItemName(0).equals("Fists")) break;
+            if(!player.getItem(0).getName().equals("Fists")) break;
             clear();
             System.out.println("Not an option.");
-        }while(player.getItemName(0).equals("Fists"));
+        }while(player.getItem(0).getName().equals("Fists"));
         player.setPlayerClass();
         System.out.println("You set your class to "+player.getPlayerClass()+".");
         mainMenu();
@@ -57,7 +60,7 @@ public class game {
                 case 2: mainMenu(); break;
                 case 3: threeCents.menu(); break;
                 case 4:
-                    y=player.getItemName(0);
+                    y=player.getItem(0).getName();
                     do{
                         System.out.print("Choose your class: ");
                         x=input.nextLine();
@@ -68,18 +71,18 @@ public class game {
                             case "fred": player.setItem(stick,0); break;
                             default: clear(); System.out.println("Not an option.");
                         }
-                        if(player.getItemName(0).equals(player.getItemName(0))){
+                        if(player.getItem(0).getName().equals(player.getItem(0).getName())){
                             clear();
                             System.out.println("Class already chosen.");
                         }
-                    }while(player.getItemName(0).equals(y));
+                    }while(player.getItem(0).getName().equals(y));
                     player.setPlayerClass();
                     System.out.println("You changed your class to "+player.getPlayerClass()+".\nPress enter to return to the main menu.");
                     input.nextLine();
                     break;
                 case 5:
                     System.out.print("Your weapon "+((player.getItemValue(0)!=-2) ? "was" : "can't be")+" upgraded.\nPress enter to return to the main menu.");
-                    player.setItem(player.getItemName(0).equals("Stick")?powerStick:player.getItemName(0).equals("Bow")?superBow:player.getItemName(0).equals("Staff")?ultraStaff:player.getItemName(0).equals("Sword")?megaSword:player.getItem(0),0);
+                    player.setItem(player.getItem(0).getName().equals("Stick")?powerStick:player.getItem(0).getName().equals("Bow")?superBow:player.getItem(0).getName().equals("Staff")?ultraStaff:player.getItem(0).getName().equals("Sword")?megaSword:player.getItem(0),0);
                     input.nextLine();
                     break;
                 case 6: System.exit(0);
@@ -88,13 +91,13 @@ public class game {
         }
     }
     //Main Menu
-    public static void mainMenu(){
-        String[] option={"Story Mode","Endless Mode","Quit"};
+    public static void mainMenu() {
+        String[] option={"Story Mode", "Endless Mode", "Quit"};
         do{
             clear();
-            System.out.println(divider + "Welcome to (WIP Name)");
+            System.out.println(divider + "Welcome to Tpircsdiov");
             switch(optionSelect(option,1)){
-                case 1: storyMode();
+                case 1: storyMode(); break;
                 case 2: endlessMode(); break;
                 case 3: System.exit(0);
                 case 0: return;
@@ -109,24 +112,27 @@ public class game {
         String currentLocation = "home";
         boolean searchedChest = false;
         //Options
-        String[] home={"Open Chest", "Leave Home"},village={"Look Around", "Leave Village"};
+        String[] home={"Open Chest", "Leave Home", "Check Bag"},village={"Look Around", "Leave Village", "Check Bag"};
         //Looking Around
         while(true){
             System.out.println(divider + "You are at " + currentLocation + ".\nOptions: ");
             switch(currentLocation) {
                 case "home":
                     switch(optionSelect(home,0)){
-                        
                         case 1:
                             game.clear();
                             if(!searchedChest) {
                                 System.out.println("You took a slice of bread.");
                                 searchedChest = true;
+                                player.getInv().add(items.get(2));
                             }else System.out.println("The chest is empty.");
                             break;
                         case 2:
                         game.clear();
                             currentLocation = "village";
+                            break;
+                        case 3:
+                            player.getBag();
                             break;
                     }
                     break;
