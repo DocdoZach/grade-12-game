@@ -10,7 +10,8 @@ public class Battle{
         String loseText = "got defeated by " + enemy;
         String[] battleOptions={"Attack","Bag","Use Ability","Run"};
         boolean skip;
-        int abilityUses = 1, coins = enemy.getCoinValue(); win = 0;
+        int abilityUses = 1, coins = enemy.getCoinValue();
+        win = 0;
         do{
             System.out.printf(game.divider + "%s has %.1f/%.1f HP remaining.%n%s has %.1f/%.1f HP remaining.%n" +game.divider, game.player, game.player.getHp(), game.player.getMaxHp(), enemy, enemy.getHp(), enemy.getMaxHp());
             skip = false;
@@ -60,14 +61,14 @@ public class Battle{
                 }default -> skip = true; 
             }
             if(skip) continue;
-            if(win == 1){
+            if(win == 1){// Winning against ememy
                 System.out.printf(game.divider + "You defeated %s! They dropped %d coins!%n" + game.divider + "Press enter to continue.",enemy,coins);
                 game.player.setBal(game.player.getBal()+coins);
                 enemy.setHp(enemy.getMaxHp()/2.0);
                 totalWins++;
                 game.input.nextLine();
                 return true;
-            }else if(win == -1){
+            }else if(win == -1){ // Losing against Enemy
                 System.out.printf(game.divider + "You %s and you dropped %d coins!%n" + game.divider + "Press enter to continue.",loseText,coins);
                 game.player.setBal(game.player.getBal()-coins);
                 game.player.setHp(game.player.getMaxHp()/2.0);
@@ -77,7 +78,7 @@ public class Battle{
         }while(win == 0);
         return false;
     }
-    //Does Speed calculations for Battle
+    //Does Speed calculations for battle
     public static int battleEnemy(Entity player, Entity enemy){
         if(player.getSpd() >= enemy.getSpd()){
             battleCalculator(player, enemy);

@@ -3,31 +3,14 @@ package main.java;
 public class Shop {
     private Item[] item;
     private int[] stock;
-    private int[] oldStock;
+    private int[] oldStock={};
     private int upgradeStock;
-
-    Shop(Item item1, Item item2, Item item3, Item item4, int stock1, int stock2, int stock3, int stock4) {
-        this.item = new Item[] {item1, item2, item3, item4};
-        this.stock = new int[] {stock1, stock2, stock3, stock4};
-        this.oldStock = new int[] {stock1, stock2, stock3, stock4};
-        this.upgradeStock=1;
-    }
-    Shop(Item item1, Item item2, Item item3, int stock1, int stock2, int stock3) {
-        this.item = new Item[] {item1, item2, item3};
-        this.stock = new int[] {stock1, stock2, stock3};
-        this.oldStock = new int[] {stock1, stock2, stock3};
-        this.upgradeStock=1;
-    }
-    Shop(Item item1, Item item2, int stock1, int stock2) {
-        this.item = new Item[] {item1, item2};
-        this.stock = new int[] {stock1, stock2};
-        this.oldStock = new int[] {stock1, stock2};
-        this.upgradeStock=1;
-    }
-    Shop(Item item1, int stock1) {
-        this.item = new Item[] {item1};
-        this.stock = new int[] {stock1};
-        this.oldStock = new int[] {stock1};
+    // Instantiate Shop
+    Shop(Item[] item, int[] stock) {
+        this.item = item;
+        this.stock = stock;
+        this.oldStock= new int[this.stock.length];
+        System.arraycopy(stock, 0, oldStock, 0, stock.length);
         this.upgradeStock=1;
     }
     public void menu() {
@@ -52,7 +35,7 @@ public class Shop {
                     stock[choice-1]--;
                     System.out.println("You got a" + ((item[choice-1].startsWithVowel()) ? "n " : " ") + item[choice-1].getName() + "!");
                 }
-            }else{
+            }else{// Upgrade Weapon
                 if(game.player.getBal() < 40) System.out.println("You don't have enough money!");
                 else if(this.upgradeStock < 1) System.out.println("Your weapon is already upgraded!");
                 else {

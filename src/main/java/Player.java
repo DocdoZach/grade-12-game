@@ -24,7 +24,7 @@ public class Player extends Entity{
     public int getBal() {return bal;}
     public void setBal(int bal) {this.bal = bal;}
     public ArrayList<Item> getInv() {return inv;}
-    public boolean getBag() {
+    public boolean getBag() {// Choose option in bag
         System.out.println("Your Bag:");
         if(this.inv.size() == 1){
             System.out.println("It's Empty.");
@@ -50,6 +50,7 @@ public class Player extends Entity{
         if(item == null) return;
         if(item.getName().equals("Hot Cocoa")) item.setStat(getMaxHp());
         else if(item.getName().equals("Apple Pie")) setMaxHp(getMaxHp()+1);
+        else if(item.getName().equals("Salad")) setSpd(getSpd()+1);
         System.out.println("Healed " + item.getStat() + " HP!");
         setHp(getHp() + item.getStat());
         if(getHp() >= getMaxHp()) setHp(getMaxHp());
@@ -64,7 +65,7 @@ public class Player extends Entity{
     public void removeItem(Item item) {this.inv.remove(item);}
     public void setItem(Item item, int index) {this.inv.set(index,item);}
     public String getPlayerClass() {return playerClass;}
-    public void setPlayerClass() {
+    public void setPlayerClass() {// Sets the Player Class
         String[] classes={"Archer","Mage","Warrior"};
         this.playerClass="none";
         while(this.playerClass=="none"){

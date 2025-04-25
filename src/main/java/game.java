@@ -22,7 +22,7 @@ public class game {
         Item applePie = new Item("Apple Pie", 9, 10);
         items = new ArrayList<>();
         items.add(hotCocoa); items.add(apple); items.add(bread); items.add(salad); items.add(applePie);
-        threeCents = new Shop(hotCocoa, applePie, bread, apple, 1, 3, 5, 7);
+        threeCents = new Shop(new Item[] {hotCocoa, applePie, salad, apple}, new int[] {1, 3, 5, 7});
         
         // Instantiate weapons
         Item stick = new Item("Stick", -1, 1);
@@ -52,10 +52,8 @@ public class game {
                 case 1 -> Battle.battler(new SmallEnemy("Small Dude", 5, 2, 1, 1));
                 case 2 -> mainMenu();
                 case 3 -> threeCents.menu();
-                case 4 -> {
-                    player.setPlayerClass();
-                    input.nextLine();
-                }case 5 -> {
+                case 4 -> player.setPlayerClass();
+                case 5 -> {
                     game.player.upgradeWeapon();
                     System.out.print("Press enter to continue.");
                     input.nextLine();
@@ -129,7 +127,7 @@ public class game {
                     switch(optionSelect(field, 0)) {
                         case 1 -> x = Battle.battler(new SmallEnemy("Shed Protector", 4, 3, 1, 1));
                         case 2 -> {
-                            x = Battle.battler(new BigEnemy("Castle Guard", 8, 4, 2, 2));
+                            x = Battle.battler(new BigEnemy("Castle Guard", 6, 4, 2, 2));
                             currentLocation="a castle";
                         }
                         case 3 -> player.getBag();
@@ -141,14 +139,14 @@ public class game {
                             x = Battle.battler(new BossEnemy("Architect", 15, 6, 4, 4));
                             currentLocation="abyss";
                         }
-                        case 2 -> x = Battle.battler(new BigEnemy("Castle Guard", 6, 4, 3, 2));
+                        case 2 -> x = Battle.battler(new BigEnemy("Castle Guard", 6, 4, 2, 2));
                         case 3 -> game.threeCents.menu();
                         case 4 -> player.getBag();
                     }
                 }
                 default -> {// Winning Area
                     clear();
-                    System.out.print(divider+"You succeeded in your goal. Press Enter to Continue.\n"+divider);
+                    System.out.print(divider+"You succeeded in your goal. Press enter to continue.\n"+divider);
                     input.nextLine();
                     return;
                 }
@@ -199,10 +197,11 @@ public class game {
     //Reset player and shop
     }public static void reset(){
         Battle.totalWins = 0;
-        player.setBal(25);
-        player.setMaxHp(5);
         player.setHp(player.getMaxHp());
-        player.resetBag();
+        player.setMaxHp(5);
         threeCents.resetStock();
+        player.setBal(25);
+        player.setSpd(3);
+        player.resetBag();
     }
 }
