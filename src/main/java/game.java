@@ -148,7 +148,7 @@ public class game {
                 }
                 default -> {// Winning Area
                     clear();
-                    System.out.print(divider+"You succeeded in your goal. Press Enter to Continue.\n"+divider);
+                    System.out.print(divider+"You succeeded in your goal. Press Enter to Continue." + divider);
                     input.nextLine();
                     return;
                 }
