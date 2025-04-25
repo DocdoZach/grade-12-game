@@ -9,6 +9,7 @@ public class game {
     public static Player player;
     public static Shop threeCents;
     public static ArrayList<Item> items;
+    public static Item[] upgrades;
 
     public static void main(String[] args) {
         // Instantiate players, items and shop
@@ -21,7 +22,7 @@ public class game {
         items = new ArrayList<>();
         items.add(hotCocoa); items.add(apple); items.add(bread); items.add(salad); items.add(applePie);
         threeCents = new Shop(hotCocoa, applePie, bread, apple, 1, 3, 5, 7);
-
+        
         // Instantiate weapons
         Item stick = new Item("Stick", -1, 1);
         Item sword = new Item("Sword", -1, 2);
@@ -31,12 +32,14 @@ public class game {
         Item megaSword = new Item("Mega Sword", -2, 4);
         Item ultraStaff = new Item("Ultra Staff", -2, 4);
         Item superBow = new Item("Super Bow", -2, 4);
-
+        upgrades = new Item[]{powerStick,superBow,ultraStaff,megaSword};
+        
         // Name select
         System.out.print("Enter your name: ");
         player.setName(input.nextLine());
         // Class select
-        String x, y;
+        String x;
+        Item y;
         System.out.println("Classes: Mage, Warrior, Archer");
         do{
             System.out.print("Choose your class: ");
@@ -50,17 +53,17 @@ public class game {
         System.out.println("You set your class to "+player.getPlayerClass()+".");
         mainMenu();
         // Debug Menu option select
-        String[] text={"Test Battle","Test Main Menu","Test Shop","Change Weapon","Upgrade Weapon","Quit"};
+        String[] debugText={"Test Battle","Test Main Menu","Test Shop","Change Weapon","Upgrade Weapon","Quit"};
         while(true) {
             clear();
             System.out.println(divider + "Tpircsdiov Debug Menu");
             // Switch Statement for Chosen Option
-            switch (optionSelect(text,0)) {
+            switch (optionSelect(debugText,0)) {
                 case 1: Battle.battler(new SmallEnemy("Small Dude", 5, 2, 1, 1)); break;
                 case 2: mainMenu(); break;
                 case 3: threeCents.menu(); break;
                 case 4:
-                    y=player.getItem(0).getName();
+                    y=player.getItem(0);
                     do{
                         System.out.print("Choose your class: ");
                         x=input.nextLine();
@@ -71,18 +74,18 @@ public class game {
                             case "fred" -> player.setItem(stick,0);
                             default -> {clear(); System.out.println("Not an option.");}
                         }
-                        if(player.getItem(0).getName().equals(player.getItem(0).getName())){
+                        if(player.getItem(0).equals(player.getItem(0))){
                             clear();
                             System.out.println("Class already chosen.");
                         }
-                    }while(player.getItem(0).getName().equals(y));
+                    }while(player.getItem(0).equals(y));
                     player.setPlayerClass();
                     System.out.println("You changed your class to "+player.getPlayerClass()+".\nPress enter to return to the main menu.");
                     input.nextLine();
                     break;
                 case 5:
-                    System.out.print("Your weapon "+((player.getItem(0).getValue()!=-2) ? "was" : "can't be")+" upgraded.\nPress enter to return to the main menu.");
-                    player.setItem(player.getItem(0).getName().equals("Stick")?powerStick:player.getItem(0).getName().equals("Bow")?superBow:player.getItem(0).getName().equals("Staff")?ultraStaff:player.getItem(0).getName().equals("Sword")?megaSword:player.getItem(0),0);
+                    game.player.upgradeWeapon();
+                    System.out.print("Press enter to return to the main menu.");
                     input.nextLine();
                     break;
                 case 6: System.exit(0);
@@ -115,10 +118,9 @@ public class game {
         //Options
         String[] home = {"Open Chest", "Leave Home", "Check Bag"},
         village = {"Look Around", "Check Out Shop", "Leave Village", "Check Bag"},
-        field = {"Attack Fighter", "Go to Castle", "Check Bag"},
+        field = {"Attack Shed Fighter", "Go to Castle", "Check Bag"},
         castle = {"Fight Architect", "Fight his Guards", "Go to Shop", "Check Bag"};
-        //Looking Around
-        do{
+        do{//Extra information about location
             switch(currentLocation) {
                 case "your home" -> extraDetails = ". You look around and find a chest";
                 case "the village" -> extraDetails = ". You see a field in the distance";
@@ -126,8 +128,9 @@ public class game {
                 case "a castle" -> extraDetails = ". After defeating the guard, you see the architect.";
             }
             System.out.println(divider + "You are at " + currentLocation + extraDetails +".\nOptions: ");
+            //Chooses info based on Location
             switch(currentLocation) {
-                case "your home":
+                case "your home" -> {
                     switch(optionSelect(home,0)){
                         case 1 -> {
                             if(!searchedChest) {
@@ -139,8 +142,8 @@ public class game {
                         case 2 -> currentLocation = "the village";
                         case 3 -> player.getBag();
                     }
-                    break;
-                case "the village":
+                }
+                case "the village" -> {
                     switch(optionSelect(village,0)) {
                         case 1 -> System.out.println("You look around.");
                         case 2 -> game.threeCents.menu();
@@ -150,8 +153,8 @@ public class game {
                         }
                         case 4 -> player.getBag();
                     }
-                    break;
-                case "an open field":
+                }
+                case "an open field" -> {
                     switch(optionSelect(field, 0)) {
                         case 1 -> x = Battle.battler(new SmallEnemy("Shed Protecter", 4, 3, 1, 1));
                         case 2 -> {
@@ -160,22 +163,24 @@ public class game {
                         }
                         case 3 -> player.getBag();
                     }
-                    break;
-                case "a castle":
+                }
+                case "a castle" -> {
                     switch(optionSelect(castle, 0)) {
                         case 1 -> {
                             x = Battle.battler(new BossEnemy("Architect", 15, 6, 4, 4));
                             currentLocation="abyss";
                         }
-                        case 2 -> x = Battle.battler(new BigEnemy("Castle Guard", 8, 4, 2, 2));
+                        case 2 -> x = Battle.battler(new BigEnemy("Castle Guard", 6, 4, 3, 2));
                         case 3 -> game.threeCents.menu();
                         case 4 -> player.getBag();
-                    }break;
-                default:
+                    }
+                }
+                default -> {
                     clear();
                     System.out.print(divider+"You succeeded in your goal. Press Enter to Continue.\n"+divider);
                     input.nextLine();
                     return;
+                }
             }
         }while(x);
         clear();
@@ -223,7 +228,7 @@ public class game {
     //Reset Player and Shop
     }public static void reset(){
         Battle.totalWins = 0;
-        player.setBal(50);
+        player.setBal(25);
         player.setHp(player.getMaxHp());
         player.resetBag();
         threeCents.resetStock();

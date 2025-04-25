@@ -53,6 +53,10 @@ public class Player extends Entity{
         if(getHp()>=getMaxHp()) setHp(getMaxHp());
         removeItem(item);
     }
+    public void upgradeWeapon(){
+        System.out.println("Your weapon "+((getItem(0).getValue()!=-2) ? "was" : "can't be")+" upgraded.");
+        setItem(getItem(0).getName().equals("Stick")?game.upgrades[0]:getItem(0).getName().equals("Bow")?game.upgrades[1]:getItem(0).getName().equals("Staff")?game.upgrades[2]:getItem(0).getName().equals("Sword")?game.upgrades[3]:getItem(0),0);
+    }
     public Item getItem(int index) {return this.inv.get(index);}
     public void addItem(Item item) {this.inv.add(item);}
     public void removeItem(Item item) {this.inv.remove(item);}
