@@ -35,7 +35,8 @@ public class Player extends Entity{
             if(this.inv.get(i).getValue()<=-1) continue;
             output[i-1]=this.inv.get(i).getName();
         }
-        int x=game.optionSelect(output,0);
+        int x=game.optionSelect(output,2);
+        if(x==0) return true;
         game.clear();
         useItem(getItem(x));
         return false;
@@ -64,24 +65,18 @@ public class Player extends Entity{
     public void setItem(Item item, int index) {this.inv.set(index,item);}
     public String getPlayerClass() {return playerClass;}
     public void setPlayerClass() {
-        int y = -1;
-        while(y == -1){
-            System.out.print("Classes: Mage, Warrior, Archer\nChoose your class: ");
-            String x = game.input.nextLine();
-            switch(x){
-                case "fred" -> {setItem(game.weapons[0],0); y=0;}
-                case "archer" -> {setItem(game.weapons[1],0);y=1;}
-                case "mage" -> {setItem(game.weapons[2],0); y=2;}
-                case "warrior" -> {setItem(game.weapons[3],0); y=3;}
-                default -> {game.clear(); System.out.println("Not an option.");}
+        String[] classes={"Archer","Mage","Warrior"};
+        this.playerClass="none";
+        while(this.playerClass=="none"){
+            System.out.println(game.divider+"Choose your class: ");
+            switch(game.optionSelect(classes, 1)){
+                case 0 -> {setItem(game.weapons[0],0); this.playerClass="default";}
+                case 1 -> {setItem(game.weapons[1],0);this.playerClass="archer";}
+                case 2 -> {setItem(game.weapons[2],0); this.playerClass="mage";}
+                case 3 -> {setItem(game.weapons[3],0); this.playerClass="warrior";}
             }
-        }switch (y) {
-            case 1 -> this.playerClass="archer";
-            case 2 -> this.playerClass="mage";
-            case 3 -> this.playerClass="warrior";
-            default -> this.playerClass="default";
         }
-        System.out.println("You set your class to "+this.playerClass+".\nPress enter to continue.");
+        System.out.print("You set your class to "+this.playerClass+".\nPress enter to continue.");
         game.input.nextLine();
     }
 }

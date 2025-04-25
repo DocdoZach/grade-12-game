@@ -41,7 +41,7 @@ public class Battle{
                                 if(enemy.getHp() <= 0) win = 1;
                             }
                             default -> {
-                                System.out.print("Due to being simple, you have no ability!");
+                                System.out.println("Due to being simple, you have no ability!");
                                 skip = true;
                             }
                         }
