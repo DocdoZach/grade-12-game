@@ -6,16 +6,16 @@ public class Player extends Entity{
     private double dodgeChance;
     private int bal;
     private String playerClass;
-    private ArrayList<Item> inv = new ArrayList<>();
+    private ArrayList<Item> inv;
     
-    Player(String name, int maxHp, int atk, int def, int spd, int bal, ArrayList<Item> inv){
+    Player(String name, int maxHp, int atk, int def, int spd){
         super(name, maxHp, atk, def, spd);
-        this.bal = bal;
-        this.inv = inv;
-        dodgeChance = 0;
-        critChance = 0.25;
-        playerClass = "default";
+        this.inv = new ArrayList<>();
         this.inv.add(new Item("Fists", -1, 0));
+        this.playerClass = "default";
+        this.critChance = 0.25;
+        this.dodgeChance = 0;
+        this.bal = 25;
     }
     public double getCritChance() {return critChance;}
     public void setCritChance(double critChance) {this.critChance=critChance;}
@@ -26,12 +26,12 @@ public class Player extends Entity{
     public ArrayList<Item> getInv() {return inv;}
     public boolean getBag() {
         System.out.println("Your Bag:");
-        if(this.inv.size()==1){
+        if(this.inv.size() == 1){
             System.out.println("It's Empty.");
             return true;
         }
         String[] output=new String[this.inv.size()-1];
-        for(int i=0;i<this.inv.size();i++){
+        for(int i = 0;i < this.inv.size(); i++){
             if(this.inv.get(i).getValue()<=-1) continue;
             output[i-1]=this.inv.get(i).getName();
         }
@@ -46,11 +46,12 @@ public class Player extends Entity{
         this.inv=newInv;
     }
     public void useItem(Item item) {
-        if(item==null)return;
+        if(item == null) return;
         if(item.getName().equals("Hot Cocoa")) item.setStat(getMaxHp());
-        System.out.println("Healed "+item.getStat() + " HP!");
-        setHp(getHp()+item.getStat());
-        if(getHp()>=getMaxHp()) setHp(getMaxHp());
+        else if(item.getName().equals("Apple Pie")) setMaxHp(getMaxHp()+1);
+        System.out.println("Healed " + item.getStat() + " HP!");
+        setHp(getHp() + item.getStat());
+        if(getHp() >= getMaxHp()) setHp(getMaxHp());
         removeItem(item);
     }
     public void upgradeWeapon(){
@@ -63,12 +64,24 @@ public class Player extends Entity{
     public void setItem(Item item, int index) {this.inv.set(index,item);}
     public String getPlayerClass() {return playerClass;}
     public void setPlayerClass() {
-        String weapon;
-        if(this.inv.isEmpty()) weapon = "none";
-        else weapon = getItem(0).getName();
-        if(weapon.contains("Sword")) this.playerClass="warrior";
-        else if(weapon.contains("Staff")) this.playerClass="mage";
-        else if(weapon.contains("Bow")) this.playerClass="archer";
-        else this.playerClass="default";
+        int y = -1;
+        while(y == -1){
+            System.out.print("Classes: Mage, Warrior, Archer\nChoose your class: ");
+            String x = game.input.nextLine();
+            switch(x){
+                case "fred" -> {setItem(game.weapons[0],0); y=0;}
+                case "archer" -> {setItem(game.weapons[1],0);y=1;}
+                case "mage" -> {setItem(game.weapons[2],0); y=2;}
+                case "warrior" -> {setItem(game.weapons[3],0); y=3;}
+                default -> {game.clear(); System.out.println("Not an option.");}
+            }
+        }switch (y) {
+            case 1 -> this.playerClass="archer";
+            case 2 -> this.playerClass="mage";
+            case 3 -> this.playerClass="warrior";
+            default -> this.playerClass="default";
+        }
+        System.out.println("You set your class to "+this.playerClass+".\nPress enter to continue.");
+        game.input.nextLine();
     }
 }

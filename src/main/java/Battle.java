@@ -1,8 +1,6 @@
 package main.java;
-import java.util.Scanner;
 
 public class Battle{
-    public static Scanner input = new Scanner(System.in);
     public static int totalWins;
     private static int win = 0;
     // Start a battle
@@ -27,17 +25,28 @@ public class Battle{
                 }case 3 -> { //Ability
                     if(abilityUses > 0){
                         switch(game.player.getPlayerClass()){
-                            case "mage":
+                            case "mage" -> {
                                 enemy.setHp(enemy.getHp()/2.0);
                                 System.out.println("Cut half of the enemy's current HP.");
-                                break;
-                            case "archer":
+                            }
+                            case "archer" -> {
                                 game.player.setHp((game.player.getMaxHp()/2.0)+game.player.getHp());
                                 if(game.player.getHp()>=game.player.getMaxHp()) game.player.setHp(game.player.getMaxHp());
-                                System.out.println("Healed half of your HP.");
-                            default: break;
+                                System.out.println("Healed half of your HP!");
+                            }
+                            case "warrior" -> {
+                                battleCalculator(game.player,enemy);
+                                battleCalculator(game.player,enemy);
+                                System.out.println("You used Double Attack!");
+                                if(enemy.getHp() <= 0) win = 1;
+                            }
+                            default -> {
+                                System.out.print("Due to being simple, you have no ability!");
+                                skip = true;
+                            }
                         }
                         abilityUses--;
+                        if(skip) break;
                         battleCalculator(enemy,game.player);
                         if(game.player.getHp() <= 0) win = -1;
                     }
@@ -56,13 +65,13 @@ public class Battle{
                 game.player.setBal(game.player.getBal()+coins);
                 enemy.setHp(enemy.getMaxHp()/2.0);
                 totalWins++;
-                input.nextLine();
+                game.input.nextLine();
                 return true;
             }else if(win == -1){
                 System.out.printf(game.divider + "You %s and you dropped %d coins!%n" + game.divider + "Press enter to continue.",loseText,coins);
                 game.player.setBal(game.player.getBal()-coins);
                 game.player.setHp(game.player.getMaxHp()/2.0);
-                input.nextLine();
+                game.input.nextLine();
                 return false;
             }
         }while(win == 0);

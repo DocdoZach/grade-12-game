@@ -16,10 +16,6 @@ public class Item {
     public void setName(String name) {this.name = name;}
     public void setValue(int value) {this.value = value;}
     public void setStat(double stat) {this.stat = stat;}
-    //Prints Value of Item
-    public String toString() {
-        return name + " has a value of " + value;
-    }
     // Method for checking if a word starts with a vowel
     public boolean startsWithVowel() {
         return "AEIOUaeiou".indexOf(this.name.charAt(0)) != -1;

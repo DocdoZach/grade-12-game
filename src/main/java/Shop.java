@@ -1,13 +1,11 @@
 package main.java;
 
-import java.util.Scanner;
 public class Shop {
     private Item[] item;
     private int[] stock;
     private int[] oldStock;
     private int upgradeStock;
 
-    public static Scanner input = new Scanner(System.in);
     Shop(Item item1, Item item2, Item item3, Item item4, int stock1, int stock2, int stock3, int stock4) {
         this.item = new Item[] {item1, item2, item3, item4};
         this.stock = new int[] {stock1, stock2, stock3, stock4};
@@ -45,7 +43,7 @@ public class Shop {
             choice=game.optionSelect(form, 2);
             // If statement for chosen option
             if(choice == 0) break;
-            else if(choice<=this.item.length){
+            else if(choice <= this.item.length){
                 if(game.player.getBal() < item[choice-1].getValue()) System.out.println("You don't have enough money!");
                 else if(stock[choice-1] < 1) System.out.println("This item is out of stock!");
                 else {
@@ -56,7 +54,7 @@ public class Shop {
                 }
             }else{
                 if(game.player.getBal() < 40) System.out.println("You don't have enough money!");
-                else if(this.upgradeStock < 1) System.out.println("This item is out of stock!");
+                else if(this.upgradeStock < 1) System.out.println("Your weapon is already upgraded!");
                 else {
                     game.player.setBal(game.player.getBal() - 40);
                     game.player.upgradeWeapon();
