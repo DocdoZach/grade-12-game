@@ -10,7 +10,7 @@ public class Battle{
         String loseText = "got defeated by " + enemy;
         String[] battleOptions={"Attack","Bag","Use Ability","Run"};
         boolean skip;
-        int abilityUses = 1, coins = enemy.getCoinValue(); this.win = 0;
+        int abilityUses = 1, coins = enemy.getCoinValue(); win = 0;
         do{
             System.out.printf(game.divider + "%s has %.1f/%.1f HP remaining.%n%s has %.1f/%.1f HP remaining.%n" +game.divider, game.player, game.player.getHp(), game.player.getMaxHp(), enemy, enemy.getHp(), enemy.getMaxHp());
             skip = false;
